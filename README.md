@@ -1,5 +1,7 @@
 # book_library
 
+[![CI/CD](https://github.com/Kotovar/book_library/actions/workflows/main.yml/badge.svg)](https://github.com/Kotovar/book_library/actions/workflows/main.yml)
+
 ## Описание
 
 ### 1 уровень (обязательный - необходимый минимум)

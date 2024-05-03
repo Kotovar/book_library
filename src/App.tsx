@@ -1,5 +1,12 @@
+import { Router } from "./routes"
+import { BrowserRouter } from "react-router-dom"
+
 const App = () => {
-  return <div className="App">Hi</div>
+  return (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  )
 }
 
 export default App

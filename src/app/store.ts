@@ -4,7 +4,7 @@ import AuthorizationReducer from '../features/featureAuthorization/Authorization
 
 const store = configureStore({
   reducer: {
-    authorization: AuthorizationReducer, // Используйте ключ 'authorization'
+    authorization: AuthorizationReducer,
   },
 });
 

@@ -1,11 +1,16 @@
+import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Router } from './routes';
 
+import './styles/reset.css';
+
 const App = () => {
   return (
     <BrowserRouter>
-      <Router />
+      <ErrorBoundary fallback={<div>Something went wrong</div>}>
+        <Router />
+      </ErrorBoundary>
     </BrowserRouter>
   );
 };

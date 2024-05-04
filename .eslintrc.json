@@ -49,6 +49,12 @@
   },
   "overrides": [
     { "files": ["*.{c,m,}{t,j}s", "*.{t,j}sx"] },
-    { "files": ["*{test,spec}.{t,j}s?(x)"], "env": { "jest": true } }
+    { "files": ["*{test,spec}.{t,j}s?(x)"], "env": { "jest": true } },
+    {
+      "files": ["vite.config.ts"],
+      "parserOptions": {
+        "project": ["./tsconfig.node.json"]
+      }
+    }
   ]
 }

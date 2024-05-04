@@ -1,8 +1,11 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../app/hooks';
 import { logIn } from '../../features/featureAuthorization/AuthorizationSlice';
+import { auth } from '../../services/firebaseConfig';
 
 interface IFormInput {
   email: string;
@@ -11,25 +14,29 @@ interface IFormInput {
 
 export const SignIn = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  function testLogIn() {
-    dispatch(logIn({ uid: '5' }));
-  }
+  const onSubmit: SubmitHandler<IFormInput> = ({ email, password }) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+
+        dispatch(logIn({ uid: user.uid }));
+        navigate('/favorites');
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+  };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Email</label>
-        <input {...register('email', { required: true })} />
-        {/* {errors.email && <p>Email обязателен для заполнения</p>} */}
-        <label>Password</label>
-        <input type='password' {...register('password', { required: true })} />
-        {/* {errors.password && <p>Пароль обязателен для заполнения</p>} */}
-        <input type='submit' value='Login' />
-      </form>
-      <button onClick={testLogIn}>Зайти в систему - тест</button>
-    </>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label>Email</label>
+      <input {...register('email', { required: true })} />
+      <label>Password</label>
+      <input type='password' {...register('password', { required: true })} />
+      <input type='submit' value='Login' />
+    </form>
   );
 };

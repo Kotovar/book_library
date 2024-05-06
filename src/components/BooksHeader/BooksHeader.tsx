@@ -1,6 +1,5 @@
 import { signOut } from 'firebase/auth';
 import { Outlet, Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 import HeaderLogo from '../../../public/library.svg';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
@@ -15,13 +14,11 @@ export const BooksHeader = () => {
   const isLoading = useAppSelector(selectIsLoaded);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   function logOutFirebase() {
     signOut(auth)
       .then(() => {
         dispatch(logOut());
-        navigate('/');
       })
       .catch(error => {
         throw new Error(error);

@@ -1,15 +1,13 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
+import type { User } from '../../types/types';
+
 interface AuthorizationState {
   user: User | null;
   isAuthenticating: boolean;
   isLoading: boolean;
   error: string | null;
-}
-
-interface User {
-  uid: string;
 }
 
 const initialState: AuthorizationState = {

@@ -18,3 +18,8 @@ export const selectErrors = createSelector(
   [selectAuthState],
   authorizationState => authorizationState.error
 );
+
+export const selectUser = createSelector(
+  [selectAuthState],
+  authorizationState => authorizationState.user
+);

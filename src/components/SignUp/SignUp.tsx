@@ -29,7 +29,7 @@ export const SignUp = () => {
         const user = userCredential.user;
 
         dispatch(logIn({ uid: user.uid }));
-        navigate('/favorites');
+        navigate(-1);
       })
       .catch((error: FirebaseError) => {
         dispatch(getError(error.code));

@@ -1,11 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-import type { RootState } from '../../app/store';
-
 interface AuthorizationState {
   user: User | null;
   isAuthenticating: boolean;
+  isLoading: boolean;
   error: string | null;
 }
 
@@ -16,6 +15,7 @@ interface User {
 const initialState: AuthorizationState = {
   user: null,
   isAuthenticating: false,
+  isLoading: true,
   error: null,
 };
 
@@ -26,15 +26,15 @@ export const authorizationSlice = createSlice({
     logIn: (state, action: PayloadAction<User | null>) => {
       state.user = action.payload;
       state.isAuthenticating = true;
+      state.isLoading = false;
     },
     logOut: state => {
       state.user = null;
       state.isAuthenticating = false;
+      state.isLoading = false;
     },
   },
 });
 
 export const { logIn, logOut } = authorizationSlice.actions;
-export const selectAuth = (state: RootState) =>
-  state.authorization.isAuthenticating;
 export default authorizationSlice.reducer;

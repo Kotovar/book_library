@@ -13,3 +13,8 @@ export const selectIsLoaded = createSelector(
   [selectAuthState],
   authorizationState => authorizationState.isLoading
 );
+
+export const selectErrors = createSelector(
+  [selectAuthState],
+  authorizationState => authorizationState.error
+);

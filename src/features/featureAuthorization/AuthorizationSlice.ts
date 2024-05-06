@@ -27,14 +27,19 @@ export const authorizationSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticating = true;
       state.isLoading = false;
+      state.error = null;
     },
     logOut: state => {
       state.user = null;
       state.isAuthenticating = false;
       state.isLoading = false;
+      state.error = null;
+    },
+    getError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
     },
   },
 });
 
-export const { logIn, logOut } = authorizationSlice.actions;
+export const { logIn, logOut, getError } = authorizationSlice.actions;
 export default authorizationSlice.reducer;

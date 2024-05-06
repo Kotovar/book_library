@@ -10,7 +10,7 @@ import { SignIn } from '../components/SignIn/SignIn';
 import { SignUp } from '../components/SignUp/SignUp';
 import { selectUser, selectIsLoaded } from '../utils/selectors';
 
-import { ProtectedRoute, PublicRoute } from './UsersRoute';
+import { ProtectedRoute, PublicRoute } from './UsersRoutes';
 
 export const Router = () => {
   const user = useAppSelector(selectUser);

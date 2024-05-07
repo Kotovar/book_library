@@ -1,15 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-interface Book {
-  kind: string;
-  id: string;
-  etag: string;
-  selfLink: string;
-  volumeInfo: Object;
-  saleInfo: Object;
-  searchInfo: Object;
-  accessInfo: Object;
-}
+import type { Book } from '../types/types';
 
 interface BookSearch {
   kind: string;

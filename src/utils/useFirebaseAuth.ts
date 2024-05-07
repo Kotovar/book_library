@@ -21,7 +21,7 @@ const useFirebaseAuth = () => {
       }
     });
 
-    return () => subscriber();
+    return subscriber;
   }, [dispatch]);
 };
 

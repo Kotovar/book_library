@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -12,6 +14,8 @@ import { auth } from '../../services/firebaseConfig';
 import type { FirebaseError } from '../../types/types';
 import { selectErrors } from '../../utils/selectors';
 
+import styles from './SignIn.module.css';
+
 interface IFormInput {
   email: string;
   password: string;
@@ -22,6 +26,12 @@ export const SignIn = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const errors = useAppSelector(selectErrors);
+
+  useEffect(() => {
+    return () => {
+      dispatch(getError(null));
+    };
+  }, [dispatch]);
 
   const onSubmit: SubmitHandler<IFormInput> = ({ email, password }) => {
     signInWithEmailAndPassword(auth, email, password)
@@ -47,14 +57,29 @@ export const SignIn = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Email</label>
-        <input {...register('email', { required: true })} />
+        <input
+          {...register('email', {
+            required: true,
+            onChange: () => {
+              if (errors) dispatch(getError(null));
+            },
+          })}
+        />
         <label>Password</label>
-        <input type='password' {...register('password', { required: true })} />
+        <input
+          type='password'
+          {...register('password', {
+            required: true,
+            onChange: () => {
+              if (errors) dispatch(getError(null));
+            },
+          })}
+        />
         <input type='submit' value='Login' />
       </form>
       {errors && (
-        <p aria-live='assertive'>
-          Error: {errorMessages[errors] || errorMessages['default']}
+        <p className={styles.error} aria-live='assertive'>
+          {errorMessages[errors] || errorMessages['default']}
         </p>
       )}
     </>

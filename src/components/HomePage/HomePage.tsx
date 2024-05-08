@@ -1,13 +1,33 @@
 import { BookCardMini } from '../BookCardMini/BookCardMini';
 
+import style from './HomePage.module.css';
+
+const bookTopics = [
+  'flowers',
+  'scientific',
+  'games',
+  'programming',
+  'education',
+  'history',
+  'kindness',
+  'space',
+  'plants',
+  'animals',
+];
+
+const listBooks = bookTopics.map(book => {
+  return (
+    <li key={book} className={style.li}>
+      <BookCardMini bookName={book} />
+    </li>
+  );
+});
+
 export const HomePage = () => {
   return (
-    <>
-      <h2>Home page</h2>
-      <BookCardMini bookName={'flowers'} />
-      <BookCardMini bookName={'science'} />
-      <BookCardMini bookName={'war'} />
-      <BookCardMini bookName={'sea'} />
-    </>
+    <main>
+      <h1>Home page</h1>
+      <ul className={style.ul}>{listBooks}</ul>
+    </main>
   );
 };

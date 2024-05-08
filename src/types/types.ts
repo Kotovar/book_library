@@ -20,7 +20,7 @@ export interface Book {
 type VolumeInfo = {
   title: string;
   authors: string[];
-  imageLinks: {
+  imageLinks?: {
     smallThumbnail?: string;
     thumbnail?: string;
     small?: string;

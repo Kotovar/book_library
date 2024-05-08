@@ -1,4 +1,8 @@
+import { useAppSelector } from '../../app/hooks';
 import { useFindBookByNameQuery } from '../../services/booksApi';
+import { selectRandomNumber } from '../../utils/selectors';
+
+import style from './BookCardMini.module.css';
 
 interface Props {
   bookName: string;
@@ -6,27 +10,30 @@ interface Props {
 
 export const BookCardMini = ({ bookName }: Props) => {
   const { data, error, isLoading } = useFindBookByNameQuery(bookName);
-
+  const randomNumber = useAppSelector(selectRandomNumber);
   if (error) return <p>Error loading book.</p>;
   if (isLoading) return <p>Loading...</p>;
   if (!data) return null;
 
-  const bookTitle = data[0]?.volumeInfo?.title || 'Untitled';
-  const image = data[0]?.volumeInfo?.imageLinks?.thumbnail || null;
-  const bookId = data[0]?.id || null;
-  let finishedImage: JSX.Element | null = null;
-  if (image) {
-    // ширина книги - 128px
-    finishedImage = <img src={image} alt={`Book = ${bookTitle}`} />;
-  }
+  const noBookCover = '../../../public/NoBookCover.webp';
+
+  const bookTitle = data[randomNumber]?.volumeInfo?.title || 'Untitled';
+  const image =
+    data[randomNumber]?.volumeInfo?.imageLinks?.thumbnail || noBookCover;
+  const finishedImage: JSX.Element = (
+    <div className={style.imageContainer}>
+      <img src={image ?? noBookCover} alt={`Book = ${bookTitle}`} />
+    </div>
+  );
+  const bookId = data[randomNumber]?.id || null;
 
   const handleClick = () => {
     console.log('Книга была кликнута:', bookTitle, ' ID: ', bookId);
   };
 
   return (
-    <div onClick={handleClick} style={{ cursor: 'pointer' }}>
-      <h3>{bookTitle}</h3>
+    <div onClick={handleClick} className={style.card}>
+      <p>{bookTitle}</p>
       {finishedImage}
     </div>
   );

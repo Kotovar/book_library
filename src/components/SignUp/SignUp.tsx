@@ -53,7 +53,7 @@ export const SignUp = () => {
   };
 
   return (
-    <>
+    <main>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Email</label>
         <input
@@ -81,6 +81,6 @@ export const SignUp = () => {
           {errorMessages[errors] || errorMessages['default']}
         </p>
       )}
-    </>
+    </main>
   );
 };

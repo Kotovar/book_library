@@ -25,6 +25,7 @@ export const bookApi = createApi({
       transformResponse: (response: BookSearch) => response.items ?? [],
     }),
   }),
+  keepUnusedDataFor: 300,
 });
 
 export const { useGetBookByIdQuery, useFindBookByNameQuery } = bookApi;

@@ -1,12 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import type { Book } from '../types/types';
-
-interface BookSearch {
-  kind: string;
-  items?: Book[];
-  totalItems: number;
-}
+import type { Book, BookSearch, VolumeInfo } from '../types/types';
 
 type BooksArrayResult = Book[] | [];
 
@@ -16,8 +10,9 @@ export const bookApi = createApi({
     baseUrl: 'https://www.googleapis.com/books/v1/',
   }),
   endpoints: builder => ({
-    getBookById: builder.query<Book, string>({
+    getBookById: builder.query<VolumeInfo, string>({
       query: id => `volumes/${id}`,
+      transformResponse: (response: Book) => response.volumeInfo,
     }),
 
     findBookByName: builder.query<BooksArrayResult, string>({

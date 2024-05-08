@@ -9,13 +9,17 @@ import {
 } from '../features/featureAuthorization/AuthorizationSlice';
 import { auth } from '../services/firebaseConfig';
 
+import { getFirebaseData } from './getFirebaseData';
+
 const useFirebaseAuth = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const subscriber = onAuthStateChanged(auth, user => {
+    const subscriber = onAuthStateChanged(auth, async user => {
       if (user) {
-        dispatch(logIn({ uid: user.uid }));
+        const favorites = await getFirebaseData(user.uid);
+
+        dispatch(logIn({ uid: user.uid, favorites: favorites, history: [] }));
       } else {
         dispatch(logOut());
       }

@@ -4,6 +4,8 @@ export type FirebaseError = {
 
 export type User = {
   uid: string;
+  favorites: string[];
+  history: string[];
 };
 
 export interface Book {
@@ -17,15 +19,25 @@ export interface Book {
   accessInfo: Object;
 }
 
-type VolumeInfo = {
+export type VolumeInfo = {
   title: string;
-  authors: string[];
+  authors?: string[];
+  subtitle?: string;
+  language: string;
+  pageCount: number;
+
   imageLinks?: {
+    extraLarge?: string;
+    large?: string;
+    medium?: string;
+    small?: string;
     smallThumbnail?: string;
     thumbnail?: string;
-    small?: string;
-    medium?: string;
-    large?: string;
-    extraLarge?: string;
   };
 };
+
+export interface BookSearch {
+  kind: string;
+  items?: Book[];
+  totalItems: number;
+}

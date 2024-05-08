@@ -33,11 +33,24 @@ export const authorizationSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
+    addFavorite: (state, action: PayloadAction<string[]>) => {
+      if (state.user) {
+        state.user.favorites = action.payload;
+      }
+    },
+    removeFavorite: (state, action: PayloadAction<string>) => {
+      if (state.user) {
+        state.user.favorites = state.user.favorites.filter(
+          id => id !== action.payload
+        );
+      }
+    },
     getError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
   },
 });
 
-export const { logIn, logOut, getError } = authorizationSlice.actions;
+export const { logIn, logOut, getError, addFavorite, removeFavorite } =
+  authorizationSlice.actions;
 export default authorizationSlice.reducer;

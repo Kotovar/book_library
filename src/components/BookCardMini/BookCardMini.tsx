@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useAppSelector } from '../../app/hooks';
 import { useFindBookByNameQuery } from '../../services/booksApi';
 import { selectRandomNumber } from '../../utils/selectors';
@@ -11,6 +13,9 @@ interface Props {
 export const BookCardMini = ({ bookName }: Props) => {
   const { data, error, isLoading } = useFindBookByNameQuery(bookName);
   const randomNumber = useAppSelector(selectRandomNumber);
+
+  const navigate = useNavigate();
+
   if (error) return <p>Error loading book.</p>;
   if (isLoading) return <p>Loading...</p>;
   if (!data) return null;
@@ -28,7 +33,7 @@ export const BookCardMini = ({ bookName }: Props) => {
   const bookId = data[randomNumber]?.id || null;
 
   const handleClick = () => {
-    console.log('Книга была кликнута:', bookTitle, ' ID: ', bookId);
+    navigate(`/book/${bookId}`);
   };
 
   return (

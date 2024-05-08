@@ -12,6 +12,7 @@ import {
 } from '../../features/featureAuthorization/AuthorizationSlice';
 import { auth } from '../../services/firebaseConfig';
 import type { FirebaseError } from '../../types/types';
+import { getFirebaseData } from '../../utils/getFirebaseData';
 import { selectErrors } from '../../utils/selectors';
 
 import styles from './SignIn.module.css';
@@ -33,17 +34,24 @@ export const SignIn = () => {
     };
   }, [dispatch]);
 
-  const onSubmit: SubmitHandler<IFormInput> = ({ email, password }) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-
-        dispatch(logIn({ uid: user.uid }));
-        navigate(-1);
-      })
-      .catch((error: FirebaseError) => {
-        dispatch(getError(error.code));
-      });
+  const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      const favorites = await getFirebaseData(user.uid);
+      dispatch(logIn({ uid: user.uid, favorites: favorites, history: [] }));
+      navigate(-1);
+    } catch (error) {
+      if ((error as FirebaseError).code) {
+        dispatch(getError((error as FirebaseError).code));
+      } else {
+        dispatch(getError('unknown-error'));
+      }
+    }
   };
 
   const errorMessages: Record<string, string> = {

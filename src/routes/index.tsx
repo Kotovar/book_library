@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { useAppSelector } from '../app/hooks';
+import { BookCardLarge } from '../components/BookCardLarge/BookCardLarge';
 import { BooksHeader } from '../components/BooksHeader/BooksHeader';
 import { Favorites } from '../components/Favorites/Favorites';
 import { History } from '../components/History/History';
@@ -37,6 +38,7 @@ export const Router = () => {
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/history' element={<History />} />
         </Route>
+        <Route path='/book/:id' element={<BookCardLarge />} />
       </Route>
       <Route path='*' element={<NotFound />} />
     </Routes>

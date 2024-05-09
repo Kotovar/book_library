@@ -31,3 +31,10 @@
     max-height: 100%;
   }
 }
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-size: 1.5rem;
+}

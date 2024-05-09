@@ -1,15 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {
-  addFavorite,
-  removeFavorite,
-} from '../../features/featureAuthorization/AuthorizationSlice';
+import { useAppSelector } from '../../app/hooks';
 import { useGetBookByIdQuery } from '../../services/booksApi';
-import { writeUserData, removeUserData } from '../../utils/getFirebaseData';
 import { selectUser } from '../../utils/selectors';
+import { useChangeFavorites } from '../../utils/useChangeFavorites';
 import ToolTip from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardLarge.module.css';
@@ -17,9 +13,20 @@ import style from './BookCardLarge.module.css';
 export const BookCardLarge = () => {
   const [visible, setVisible] = useState<boolean>(true);
   const { id } = useParams();
-  const { data, error, isLoading } = useGetBookByIdQuery(id!);
+  const bookId = id || '';
+  const { data, error, isLoading } = useGetBookByIdQuery(bookId);
   const user = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
+  const changeFavorites = useChangeFavorites();
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    if (!visible) {
+      timer = setTimeout(() => {
+        setVisible(true);
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [visible]);
 
   const noBookCoverSource = '../../../public/NoBookCover.webp';
   const image =
@@ -30,31 +37,32 @@ export const BookCardLarge = () => {
     noBookCoverSource;
 
   const authors = data?.authors?.join(', ') || 'Author not specified';
-  const addedToFavorites = id ? user?.favorites.includes(id) : null;
+  const addedToFavorites = id ? user?.favorites.includes(id) ?? false : false;
   const text = addedToFavorites ? 'Remove from favorites' : 'Add to favorites';
 
-  async function changeFavorites() {
+  const handleMainClick = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.tagName !== 'BUTTON') {
+      setVisible(true);
+    }
+  };
+
+  const handleFavoriteClick = () => {
     if (!user) {
       setVisible(false);
       return;
     }
-
-    if (addedToFavorites && id) {
-      dispatch(removeFavorite(id));
-      await removeUserData(user.uid, id);
-    } else if (id) {
-      const updatedFavorites = [...user.favorites, id];
-      dispatch(addFavorite(updatedFavorites));
-      writeUserData(user.uid, updatedFavorites);
+    if (id) {
+      changeFavorites(id, addedToFavorites);
     }
-  }
+  };
 
   if (error) return <p>Error loading book.</p>;
   if (isLoading) return <p>Loading...</p>;
   if (!data) return null;
 
   return (
-    <main>
+    <main onClick={handleMainClick}>
       <div className={style.container}>
         <h1>{data.title ?? 'No name'}</h1>
         <p>{data.subtitle ?? 'No description'}</p>
@@ -66,7 +74,7 @@ export const BookCardLarge = () => {
         </div>
 
         <ToolTip visible={visible}>
-          <button onClick={changeFavorites}>{text}</button>
+          <button onClick={handleFavoriteClick}>{text}</button>
         </ToolTip>
       </div>
     </main>

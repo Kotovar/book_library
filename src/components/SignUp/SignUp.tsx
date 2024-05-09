@@ -38,7 +38,7 @@ export const SignUp = () => {
         const user = userCredential.user;
 
         dispatch(logIn({ uid: user.uid, favorites: [], history: [] }));
-        navigate(-1);
+        navigate('/');
       })
       .catch((error: FirebaseError) => {
         dispatch(getError(error.code));

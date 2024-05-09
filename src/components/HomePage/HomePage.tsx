@@ -1,4 +1,5 @@
 import { BookCardMini } from '../BookCardMini/BookCardMini';
+import { SearchForm } from '../Search/SearchComponents/SearchForm';
 
 import style from './HomePage.module.css';
 
@@ -27,6 +28,7 @@ export const HomePage = () => {
   return (
     <main>
       <h1>Home page</h1>
+      <SearchForm />
       <ul className={style.ul}>{listBooks}</ul>
     </main>
   );

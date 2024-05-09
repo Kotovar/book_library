@@ -7,6 +7,7 @@ import { Favorites } from '../components/Favorites/Favorites';
 import { History } from '../components/History/History';
 import { HomePage } from '../components/HomePage/HomePage';
 import { NotFound } from '../components/NotFound/NotFound';
+import { SearchComponent } from '../components/Search/SearchComponent';
 import { SignIn } from '../components/SignIn/SignIn';
 import { SignUp } from '../components/SignUp/SignUp';
 import { selectUser, selectIsLoaded } from '../utils/selectors';
@@ -39,6 +40,7 @@ export const Router = () => {
           <Route path='/history' element={<History />} />
         </Route>
         <Route path='/book/:id' element={<BookCardLarge />} />
+        <Route path='/search' element={<SearchComponent />} />
       </Route>
       <Route path='*' element={<NotFound />} />
     </Routes>

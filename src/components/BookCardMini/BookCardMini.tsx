@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
 import { useAppSelector } from '../../app/hooks';
 import { useFindBookByNameQuery } from '../../services/booksApi';
 import { selectRandomNumber, selectUser } from '../../utils/selectors';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
+import { useHandleClick } from '../../utils/useHandleClick';
 import ToolTip from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardMini.module.css';
@@ -18,7 +17,7 @@ export const BookCardMini = ({ bookName }: Props) => {
   const { data, error, isLoading } = useFindBookByNameQuery(bookName);
   const randomNumber = useAppSelector(selectRandomNumber);
   const [visible, setVisible] = useState<boolean>(true);
-  const navigate = useNavigate();
+  const handleClick = useHandleClick();
   const changeFavorites = useChangeFavorites();
   const user = useAppSelector(selectUser);
 
@@ -36,14 +35,7 @@ export const BookCardMini = ({ bookName }: Props) => {
   if (isLoading) return <p>Loading...</p>;
   if (!data) return null;
 
-  const bookId = data[randomNumber]?.id || null;
-
-  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    const target = e.target as HTMLElement;
-    if (target.tagName !== 'BUTTON') {
-      navigate(`/book/${bookId}`);
-    }
-  };
+  const bookId = data[randomNumber]?.id;
 
   const handleFavoriteClick = () => {
     if (!user) {
@@ -69,7 +61,7 @@ export const BookCardMini = ({ bookName }: Props) => {
   const image =
     data[randomNumber]?.volumeInfo?.imageLinks?.thumbnail || noBookCover;
   const finishedImage: JSX.Element = (
-    <div onClick={handleClick} className={style.imageContainer}>
+    <div onClick={e => handleClick(e, bookId)} className={style.imageContainer}>
       <img src={image ?? noBookCover} alt={`Book = ${bookTitle}`} />
     </div>
   );

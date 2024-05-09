@@ -51,7 +51,7 @@ export const BooksHeader = () => {
         <Link to='/' className={styles.logo}>
           <img src={HeaderLogo} alt='Header Logo' />
         </Link>
-        <div className={styles.buttonPanel}>{headerContent}</div>
+        <nav className={styles.buttonPanel}>{headerContent}</nav>
       </header>
 
       <Outlet />

@@ -1,0 +1,33 @@
+.card {
+  display: grid;
+  grid-template-rows: 20% 1fr;
+  justify-items: center;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 2% 99% 4% 96% / 98% 2% 98% 2%;
+  width: 15vw;
+  height: 300px;
+
+  p {
+    max-width: -webkit-fill-available;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin: 0;
+    text-align: center;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+}
+
+.imageContainer {
+  max-height: 205px;
+  max-width: 128px;
+  display: flex;
+  align-items: center;
+
+  img {
+    max-height: 100%;
+  }
+}

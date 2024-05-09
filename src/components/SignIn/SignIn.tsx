@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
@@ -10,7 +12,10 @@ import {
 } from '../../features/featureAuthorization/AuthorizationSlice';
 import { auth } from '../../services/firebaseConfig';
 import type { FirebaseError } from '../../types/types';
+import { getFirebaseData } from '../../utils/getFirebaseData';
 import { selectErrors } from '../../utils/selectors';
+
+import styles from './SignIn.module.css';
 
 interface IFormInput {
   email: string;
@@ -23,17 +28,30 @@ export const SignIn = () => {
   const navigate = useNavigate();
   const errors = useAppSelector(selectErrors);
 
-  const onSubmit: SubmitHandler<IFormInput> = ({ email, password }) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
+  useEffect(() => {
+    return () => {
+      dispatch(getError(null));
+    };
+  }, [dispatch]);
 
-        dispatch(logIn({ uid: user.uid }));
-        navigate(-1);
-      })
-      .catch((error: FirebaseError) => {
-        dispatch(getError(error.code));
-      });
+  const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      const favorites = await getFirebaseData(user.uid);
+      dispatch(logIn({ uid: user.uid, favorites: favorites, history: [] }));
+      navigate(-1);
+    } catch (error) {
+      if ((error as FirebaseError).code) {
+        dispatch(getError((error as FirebaseError).code));
+      } else {
+        dispatch(getError('unknown-error'));
+      }
+    }
   };
 
   const errorMessages: Record<string, string> = {
@@ -44,19 +62,34 @@ export const SignIn = () => {
   };
 
   return (
-    <>
+    <main>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>Email</label>
-        <input {...register('email', { required: true })} />
+        <input
+          {...register('email', {
+            required: true,
+            onChange: () => {
+              if (errors) dispatch(getError(null));
+            },
+          })}
+        />
         <label>Password</label>
-        <input type='password' {...register('password', { required: true })} />
+        <input
+          type='password'
+          {...register('password', {
+            required: true,
+            onChange: () => {
+              if (errors) dispatch(getError(null));
+            },
+          })}
+        />
         <input type='submit' value='Login' />
       </form>
       {errors && (
-        <p aria-live='assertive'>
-          Error: {errorMessages[errors] || errorMessages['default']}
+        <p className={styles.error} aria-live='assertive'>
+          {errorMessages[errors] || errorMessages['default']}
         </p>
       )}
-    </>
+    </main>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
@@ -8,8 +8,12 @@ import { useFindBookByNameQuery } from '../../../services/booksApi';
 import style from './SearchForm.module.css';
 import { SearchResultsForm } from './SearchResultsForm';
 
-export const SearchForm = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+interface Props {
+  searchParams?: string;
+}
+
+export const SearchForm = ({ searchParams }: Props) => {
+  const [searchTerm, setSearchTerm] = useState(searchParams ?? '');
   const [visibleResults, setVisibleResults] = useState(true);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const navigate = useNavigate();
@@ -19,6 +23,14 @@ export const SearchForm = () => {
       skip: debouncedSearchTerm.trim() === '',
     }
   );
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [searchParams]);
 
   const checkKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Enter') {
@@ -56,20 +68,23 @@ export const SearchForm = () => {
   return (
     <div className={style.container}>
       <form className={style.form} onSubmit={handleSubmit}>
-        <input
-          className={style.input}
-          type='text'
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          onKeyDown={checkKeyDown}
-          onBlur={() => setVisibleResults(true)}
-          onFocus={() => setVisibleResults(false)}
-        />
-
-        <div hidden={visibleResults} className={style['search-result']}>
-          {isLoading && <p>Searching...</p>}
-          {listBooks}
+        <div>
+          <input
+            ref={inputRef}
+            className={style.input}
+            type='text'
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            onKeyDown={checkKeyDown}
+            onBlur={() => setVisibleResults(true)}
+            onFocus={() => setVisibleResults(false)}
+          />
+          <div hidden={visibleResults} className={style['search-result']}>
+            {isLoading && <p>Searching...</p>}
+            {listBooks}
+          </div>
         </div>
+
         <input
           className={style['input-button']}
           type='button'

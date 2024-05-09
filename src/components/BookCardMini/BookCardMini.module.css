@@ -36,5 +36,6 @@
   background-color: transparent;
   border: none;
   color: red;
+  z-index: 100;
   font-size: 1.5rem;
 }

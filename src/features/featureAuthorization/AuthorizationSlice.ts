@@ -45,12 +45,31 @@ export const authorizationSlice = createSlice({
         );
       }
     },
+    addHistory: (state, action: PayloadAction<string[]>) => {
+      if (state.user) {
+        state.user.history = action.payload;
+      }
+    },
+    removeHistory: (state, action: PayloadAction<string>) => {
+      if (state.user) {
+        state.user.history = state.user.history.filter(
+          id => id !== action.payload
+        );
+      }
+    },
     getError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
   },
 });
 
-export const { logIn, logOut, getError, addFavorite, removeFavorite } =
-  authorizationSlice.actions;
+export const {
+  logIn,
+  logOut,
+  getError,
+  addFavorite,
+  removeFavorite,
+  addHistory,
+  removeHistory,
+} = authorizationSlice.actions;
 export default authorizationSlice.reducer;

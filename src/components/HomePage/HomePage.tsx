@@ -1,4 +1,4 @@
-import { useFindBookByNameQuery } from '../../services/booksApi';
+import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
 import { BookCardMini } from '../BookCardMini/BookCardMini';
 import { SearchForm } from '../Search/SearchForms/SearchForm';
 

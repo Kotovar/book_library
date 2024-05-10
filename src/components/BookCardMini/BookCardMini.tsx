@@ -36,7 +36,7 @@ export const BookCardMini = ({ id, volumeInfo }: Props) => {
       return;
     }
 
-    changeFavorites(id, addedToFavorites);
+    changeFavorites(user, id, addedToFavorites);
   };
 
   const addedToFavorites = id ? user?.favorites.includes(id) ?? false : false;

@@ -17,9 +17,11 @@ const useFirebaseAuth = () => {
   useEffect(() => {
     const subscriber = onAuthStateChanged(auth, async user => {
       if (user) {
-        const favorites = await getFirebaseData(user.uid);
+        const [favorites, history] = await getFirebaseData(user.uid);
 
-        dispatch(logIn({ uid: user.uid, favorites: favorites, history: [] }));
+        dispatch(
+          logIn({ uid: user.uid, favorites: favorites, history: history })
+        );
       } else {
         dispatch(logOut());
       }

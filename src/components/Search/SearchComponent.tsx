@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 
-import { useFindBookByNameQuery } from '../../services/booksApi';
+import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
 import { BookCardMini } from '../BookCardMini/BookCardMini';
 
 import style from './SearchComponent.module.css';

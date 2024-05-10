@@ -5,7 +5,7 @@ import type {
   BookSearch,
   VolumeInfo,
   BooksArrayResult,
-} from '../types/types';
+} from '../../types/types';
 
 export const bookApi = createApi({
   reducerPath: 'bookApi',

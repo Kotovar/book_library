@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppSelector } from '../../app/hooks';
-import { useGetBookByIdQuery } from '../../services/booksApi';
+import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
 import { selectUser } from '../../utils/selectors';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
 import ToolTip from '../ToolTipComponent/ToolTip';
@@ -53,7 +53,7 @@ export const BookCardLarge = () => {
       return;
     }
     if (id) {
-      changeFavorites(id, addedToFavorites);
+      changeFavorites(user, id, addedToFavorites);
     }
   };
 

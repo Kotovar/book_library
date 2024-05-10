@@ -42,8 +42,10 @@ export const SignIn = () => {
         password
       );
       const user = userCredential.user;
-      const favorites = await getFirebaseData(user.uid);
-      dispatch(logIn({ uid: user.uid, favorites: favorites, history: [] }));
+      const [favorites = [], history = []] = await getFirebaseData(user.uid);
+      dispatch(
+        logIn({ uid: user.uid, favorites: favorites, history: history })
+      );
       navigate(-1);
     } catch (error) {
       if ((error as FirebaseError).code) {

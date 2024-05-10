@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../app/hooks';
-import { useGetBookByIdQuery } from '../../services/booksApi';
+import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
 import { selectUser } from '../../utils/selectors';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
 import { useHandleClick } from '../../utils/useHandleClick';
@@ -25,7 +25,7 @@ export const BookCardMiniFavorite = ({ bookId }: Props) => {
       return;
     }
     if (bookId) {
-      changeFavorites(bookId, addedToFavorites);
+      changeFavorites(user, bookId, addedToFavorites);
     }
   };
 

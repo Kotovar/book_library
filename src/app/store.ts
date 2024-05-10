@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 import AuthorizationReducer from '../features/featureAuthorization/AuthorizationSlice';
-import { bookApi } from '../services/booksApi';
+import { bookApi } from '../features/featureBooksApi/booksApi';
 
 const store = configureStore({
   reducer: {

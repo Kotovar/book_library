@@ -1,0 +1,13 @@
+.p {
+  text-align: center;
+}
+
+.li {
+  list-style-type: none;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}

@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
-import { useAppSelector } from '../../../app/hooks';
-import { useFindBookByNameQuery } from '../../../features/featureBooksApi/booksApi';
-import { selectUser } from '../../../utils/selectors';
-import { useChangeHistory } from '../../../utils/useChangeHistory';
+import { useAppSelector } from '../../app/hooks';
+import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
+import { selectUser } from '../../utils/selectors';
+import { useChangeHistory } from '../../utils/useChangeHistory';
+import { Suggest } from '../Suggest/Suggest';
 
 import style from './SearchForm.module.css';
-import { SearchResultsForm } from './SearchResultsForm';
 interface Props {
   searchParams?: string;
 }
@@ -30,46 +30,37 @@ export const SearchForm = ({ searchParams }: Props) => {
 
   const numberOfSuggest = 5;
 
-  const checkKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleSearch();
-    }
-    return;
-  };
-
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     if (searchTerm.trim() !== '') {
       navigate(`/search?${searchTerm}`);
+      if (user) {
+        changeHistory(user, true, searchTerm);
+      }
     }
-    if (user) {
-      changeHistory(user, true, searchTerm);
-    }
-  };
+  }, [navigate, searchTerm, user, changeHistory]);
+
+  const checkKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLElement>) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSearch();
+      }
+    },
+    [handleSearch]
+  );
 
   const listBooks =
-    searchTerm !== '' && data
-      ? data.map((book, index) => {
-          if (index < numberOfSuggest) {
-            return (
-              <SearchResultsForm
-                key={book.id}
-                id={book.id}
-                volumeInfo={book.volumeInfo}
-              />
-            );
-          }
-          return null;
-        })
+    searchTerm && data
+      ? data
+          .slice(0, numberOfSuggest)
+          .map(book => (
+            <Suggest key={book.id} id={book.id} volumeInfo={book.volumeInfo} />
+          ))
       : null;
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
 
   return (
     <div className={style.container}>
-      <form className={style.form} onSubmit={handleSubmit}>
+      <form className={style.form}>
         <div>
           <input
             className={style.input}

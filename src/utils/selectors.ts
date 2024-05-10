@@ -23,3 +23,11 @@ export const selectUser = createSelector(
   [selectAuthState],
   authorizationState => authorizationState.user
 );
+
+export const selectIsFavorite = createSelector(
+  [selectUser, (_, bookId: string) => bookId],
+  (user, bookId) => user?.favorites?.includes(bookId) ?? false
+);
+
+export const makeSelectIsFavorite = (bookId: string) => (state: RootState) =>
+  selectIsFavorite(state, bookId);

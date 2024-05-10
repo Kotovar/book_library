@@ -1,8 +1,9 @@
 import { useAppSelector } from '../../app/hooks';
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
-import { selectUser } from '../../utils/selectors';
+import { getBookDetailsLite } from '../../utils/getBookDetails';
+import { makeSelectIsFavorite } from '../../utils/selectors';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
-import { useHandleClick } from '../../utils/useHandleClick';
+import { useHandleNavigateClick } from '../../utils/useHandleNavigateClick';
 
 import style from './BookCardMini.module.css';
 
@@ -12,44 +13,34 @@ interface Props {
 
 export const BookCardMiniFavorite = ({ bookId }: Props) => {
   const { data, error, isLoading } = useGetBookByIdQuery(bookId);
-  const handleClick = useHandleClick();
+  const handleClick = useHandleNavigateClick();
   const changeFavorites = useChangeFavorites();
-  const user = useAppSelector(selectUser);
+  const addedToFavorites = useAppSelector(makeSelectIsFavorite(bookId));
 
   if (error) return <p>Error loading book.</p>;
   if (isLoading) return <p>Loading...</p>;
+
   if (!data) return null;
 
-  const handleFavoriteClick = () => {
-    if (!user) {
-      return;
-    }
-    if (bookId) {
-      changeFavorites(user, bookId, addedToFavorites);
-    }
+  const handleFavoriteClick = async () => {
+    await changeFavorites(bookId, addedToFavorites);
   };
 
-  const addedToFavorites = bookId
-    ? user?.favorites.includes(bookId) ?? false
-    : false;
+  const bookDetails = data ? getBookDetailsLite(data, addedToFavorites) : null;
 
-  const buttonText = addedToFavorites ? '♥' : '♡';
-  const buttonTitle = addedToFavorites
-    ? 'Remove from favorites'
-    : 'Add to favorites';
-  const noBookCover = '../../../public/NoBookCover.webp';
-  const bookTitle = data.title || 'Untitled';
+  if (!bookDetails) return null;
 
-  const image = data?.imageLinks?.thumbnail || noBookCover;
+  const { buttonText, buttonTitle, image, title } = bookDetails;
+
   const finishedImage: JSX.Element = (
     <div onClick={e => handleClick(e, bookId)} className={style.imageContainer}>
-      <img src={image ?? noBookCover} alt={`Book = ${bookTitle}`} />
+      <img src={image} alt={`Book = ${title}`} />
     </div>
   );
 
   return (
     <div className={style.card}>
-      <p>{bookTitle}</p>
+      <p>{title}</p>
       {finishedImage}
       <button
         title={buttonTitle}

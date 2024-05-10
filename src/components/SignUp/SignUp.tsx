@@ -15,6 +15,7 @@ import type { FirebaseError } from '../../types/types';
 import { selectErrors } from '../../utils/selectors';
 
 import styles from './SignUp.module.css';
+
 interface IFormInput {
   email: string;
   password: string;

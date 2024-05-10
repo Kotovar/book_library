@@ -1,44 +1,22 @@
-import { useEffect, useState } from 'react';
-
 import { useParams } from 'react-router-dom';
 
 import { useAppSelector } from '../../app/hooks';
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
-import { selectUser } from '../../utils/selectors';
+import { getBookDetailsFull } from '../../utils/getBookDetails';
+import { makeSelectIsFavorite, selectUser } from '../../utils/selectors';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
+import { useVisibilityTimer } from '../../utils/useVisibilityTimer';
 import ToolTip from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardLarge.module.css';
 
 export const BookCardLarge = () => {
-  const [visible, setVisible] = useState<boolean>(true);
-  const { id } = useParams();
-  const bookId = id || '';
-  const { data, error, isLoading } = useGetBookByIdQuery(bookId);
+  const { id } = useParams() as { id: string };
+  const { data, error, isLoading } = useGetBookByIdQuery(id);
   const user = useAppSelector(selectUser);
+  const addedToFavorites = useAppSelector(makeSelectIsFavorite(id));
   const changeFavorites = useChangeFavorites();
-
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-    if (!visible) {
-      timer = setTimeout(() => {
-        setVisible(true);
-      }, 3000);
-    }
-    return () => clearTimeout(timer);
-  }, [visible]);
-
-  const noBookCoverSource = '../../../public/NoBookCover.webp';
-  const image =
-    data?.imageLinks?.large ||
-    data?.imageLinks?.medium ||
-    data?.imageLinks?.small ||
-    data?.imageLinks?.thumbnail ||
-    noBookCoverSource;
-
-  const authors = data?.authors?.join(', ') || 'Author not specified';
-  const addedToFavorites = id ? user?.favorites.includes(id) ?? false : false;
-  const text = addedToFavorites ? 'Remove from favorites' : 'Add to favorites';
+  const [visible, setVisible] = useVisibilityTimer();
 
   const handleMainClick = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
@@ -53,24 +31,30 @@ export const BookCardLarge = () => {
       return;
     }
     if (id) {
-      changeFavorites(user, id, addedToFavorites);
+      changeFavorites(id, addedToFavorites);
     }
   };
 
-  if (error) return <p>Error loading book.</p>;
-  if (isLoading) return <p>Loading...</p>;
-  if (!data) return null;
+  if (error) return <p className={style.p}>Error loading book.</p>;
+  if (isLoading) return <p className={style.p}>Loading...</p>;
+
+  const bookDetails = data ? getBookDetailsFull(data, addedToFavorites) : null;
+
+  if (!bookDetails) return null;
+
+  const { image, authors, text, title, description, language, pages } =
+    bookDetails;
 
   return (
     <main onClick={handleMainClick}>
       <div className={style.container}>
-        <h1>{data.title ?? 'No name'}</h1>
-        <p>{data.description ?? 'No description'}</p>
+        <h1>{title}</h1>
+        <p>{description}</p>
         <p>{authors}</p>
-        <p>{`Language: ${data.language}`}</p>
-        <p>{`Pages: ${data.pageCount}`}</p>
+        <p>{language}</p>
+        <p>{pages}</p>
         <div className={style['image-container']}>
-          <img src={image} alt={`${data.title} cover`} />
+          <img src={image} alt={`${title} cover`} />
         </div>
 
         <ToolTip visible={visible}>

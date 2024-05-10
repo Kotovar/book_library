@@ -1,24 +1,11 @@
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
 import { BookCardMini } from '../BookCardMini/BookCardMini';
-import { SearchForm } from '../Search/SearchForms/SearchForm';
+import { SearchForm } from '../SearchForms/SearchForm';
 
 import style from './HomePage.module.css';
 
-const bookTopics = [
-  'flowers',
-  'scientific',
-  'games',
-  'programming',
-  'education',
-  'history',
-  'kindness',
-  'space',
-  'plants',
-  'animals',
-];
-
 export const HomePage = () => {
-  const { data, error, isLoading } = useFindBookByNameQuery(bookTopics[0]);
+  const { data, error, isLoading } = useFindBookByNameQuery('programming');
 
   let listBooks;
   if (data) {
@@ -35,7 +22,7 @@ export const HomePage = () => {
     <main>
       <h1>Home page</h1>
       <SearchForm />
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <p style={{ textAlign: 'center' }}>Loading...</p>}
       {error && <p>Error occurred: {error.toString()}</p>}
       <ul className={style.ul}>{listBooks}</ul>
     </main>

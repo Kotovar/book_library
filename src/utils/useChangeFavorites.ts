@@ -1,20 +1,21 @@
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   addFavorite,
   removeFavorite,
 } from '../features/featureAuthorization/AuthorizationSlice';
-import type { User } from '../types/types';
 
 import { writeUserData, removeUserFavorite } from './getFirebaseData';
+import { selectUser } from './selectors';
 
 export const useChangeFavorites = () => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
 
-  const changeFavorites = async (
-    user: User,
-    bookId: string,
-    addedToFavorites: boolean
-  ) => {
+  const changeFavorites = async (bookId: string, addedToFavorites: boolean) => {
+    if (!user) {
+      return;
+    }
+
     if (addedToFavorites) {
       dispatch(removeFavorite(bookId));
 

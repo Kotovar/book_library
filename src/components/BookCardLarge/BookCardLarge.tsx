@@ -1,72 +1,64 @@
-import { useState } from 'react';
-
 import { useParams } from 'react-router-dom';
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {
-  addFavorite,
-  removeFavorite,
-} from '../../features/featureAuthorization/AuthorizationSlice';
-import { useGetBookByIdQuery } from '../../services/booksApi';
-import { writeUserData, removeUserData } from '../../utils/getFirebaseData';
-import { selectUser } from '../../utils/selectors';
+import { useAppSelector } from '../../app/hooks';
+import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
+import { getBookDetailsFull } from '../../utils/getBookDetails';
+import { makeSelectIsFavorite, selectUser } from '../../utils/selectors';
+import { useChangeFavorites } from '../../utils/useChangeFavorites';
+import { useVisibilityTimer } from '../../utils/useVisibilityTimer';
 import ToolTip from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardLarge.module.css';
 
 export const BookCardLarge = () => {
-  const [visible, setVisible] = useState<boolean>(true);
-  const { id } = useParams();
-  const { data, error, isLoading } = useGetBookByIdQuery(id!);
+  const { id } = useParams() as { id: string };
+  const { data, error, isLoading } = useGetBookByIdQuery(id);
   const user = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
+  const addedToFavorites = useAppSelector(makeSelectIsFavorite(id));
+  const changeFavorites = useChangeFavorites();
+  const [visible, setVisible] = useVisibilityTimer();
 
-  const noBookCoverSource = '../../../public/NoBookCover.webp';
-  const image =
-    data?.imageLinks?.large ||
-    data?.imageLinks?.medium ||
-    data?.imageLinks?.small ||
-    data?.imageLinks?.thumbnail ||
-    noBookCoverSource;
+  const handleMainClick = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.tagName !== 'BUTTON') {
+      setVisible(true);
+    }
+  };
 
-  const authors = data?.authors?.join(', ') || 'Author not specified';
-  const addedToFavorites = id ? user?.favorites.includes(id) : null;
-  const text = addedToFavorites ? 'Remove from favorites' : 'Add to favorites';
-
-  async function changeFavorites() {
+  const handleFavoriteClick = () => {
     if (!user) {
       setVisible(false);
       return;
     }
-
-    if (addedToFavorites && id) {
-      dispatch(removeFavorite(id));
-      await removeUserData(user.uid, id);
-    } else if (id) {
-      const updatedFavorites = [...user.favorites, id];
-      dispatch(addFavorite(updatedFavorites));
-      writeUserData(user.uid, updatedFavorites);
+    if (id) {
+      changeFavorites(id, addedToFavorites);
     }
-  }
+  };
 
-  if (error) return <p>Error loading book.</p>;
-  if (isLoading) return <p>Loading...</p>;
-  if (!data) return null;
+  if (error) return <p className={style.p}>Error loading book.</p>;
+  if (isLoading) return <p className={style.p}>Loading...</p>;
+
+  const bookDetails = data ? getBookDetailsFull(data, addedToFavorites) : null;
+
+  if (!bookDetails) return null;
+
+  const { image, authors, text, title, description, language, pages } =
+    bookDetails;
 
   return (
-    <main>
+    <main onClick={handleMainClick}>
       <div className={style.container}>
-        <h1>{data.title ?? 'No name'}</h1>
-        <p>{data.subtitle ?? 'No description'}</p>
+        <h1>{title}</h1>
+        <p>{description}</p>
         <p>{authors}</p>
-        <p>{`Language: ${data.language}`}</p>
-        <p>{`Pages: ${data.pageCount}`}</p>
+        <p>{language}</p>
+        <p>{pages}</p>
         <div className={style['image-container']}>
-          <img src={image} alt={`${data.title} cover`} />
+          <img src={image} alt={`${title} cover`} />
         </div>
 
         <ToolTip visible={visible}>
-          <button onClick={changeFavorites}>{text}</button>
+          <button onClick={handleFavoriteClick}>{text}</button>
         </ToolTip>
       </div>
     </main>

@@ -19,10 +19,12 @@ export interface Book {
   accessInfo: Object;
 }
 
+export type BooksArrayResult = Book[] | [];
+
 export type VolumeInfo = {
   title: string;
   authors?: string[];
-  subtitle?: string;
+  description?: string;
   language: string;
   pageCount: number;
 

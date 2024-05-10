@@ -15,6 +15,7 @@ import type { FirebaseError } from '../../types/types';
 import { selectErrors } from '../../utils/selectors';
 
 import styles from './SignUp.module.css';
+
 interface IFormInput {
   email: string;
   password: string;
@@ -38,7 +39,7 @@ export const SignUp = () => {
         const user = userCredential.user;
 
         dispatch(logIn({ uid: user.uid, favorites: [], history: [] }));
-        navigate(-1);
+        navigate('/');
       })
       .catch((error: FirebaseError) => {
         dispatch(getError(error.code));

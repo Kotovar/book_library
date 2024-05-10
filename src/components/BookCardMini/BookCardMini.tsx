@@ -1,45 +1,60 @@
-import { useNavigate } from 'react-router-dom';
-
 import { useAppSelector } from '../../app/hooks';
-import { useFindBookByNameQuery } from '../../services/booksApi';
-import { selectRandomNumber } from '../../utils/selectors';
+import type { VolumeInfo } from '../../types/types';
+import { getBookDetailsLite } from '../../utils/getBookDetails';
+import { selectUser } from '../../utils/selectors';
+import { makeSelectIsFavorite } from '../../utils/selectors';
+import { useChangeFavorites } from '../../utils/useChangeFavorites';
+import { useHandleNavigateClick } from '../../utils/useHandleNavigateClick';
+import { useVisibilityTimer } from '../../utils/useVisibilityTimer';
+import ToolTip from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardMini.module.css';
 
 interface Props {
-  bookName: string;
+  id: string;
+  volumeInfo: VolumeInfo;
 }
 
-export const BookCardMini = ({ bookName }: Props) => {
-  const { data, error, isLoading } = useFindBookByNameQuery(bookName);
-  const randomNumber = useAppSelector(selectRandomNumber);
+export const BookCardMini = ({ id, volumeInfo }: Props) => {
+  const handleClick = useHandleNavigateClick();
+  const changeFavorites = useChangeFavorites();
+  const user = useAppSelector(selectUser);
+  const addedToFavorites = useAppSelector(makeSelectIsFavorite(id));
+  const [visible, setVisible] = useVisibilityTimer();
 
-  const navigate = useNavigate();
+  const handleFavoriteClick = () => {
+    if (!user) {
+      setVisible(false);
+      return;
+    }
 
-  if (error) return <p>Error loading book.</p>;
-  if (isLoading) return <p>Loading...</p>;
-  if (!data) return null;
-
-  const noBookCover = '../../../public/NoBookCover.webp';
-
-  const bookTitle = data[randomNumber]?.volumeInfo?.title || 'Untitled';
-  const image =
-    data[randomNumber]?.volumeInfo?.imageLinks?.thumbnail || noBookCover;
-  const finishedImage: JSX.Element = (
-    <div className={style.imageContainer}>
-      <img src={image ?? noBookCover} alt={`Book = ${bookTitle}`} />
-    </div>
-  );
-  const bookId = data[randomNumber]?.id || null;
-
-  const handleClick = () => {
-    navigate(`/book/${bookId}`);
+    changeFavorites(id, addedToFavorites);
   };
 
+  const { buttonText, buttonTitle, image, title } = getBookDetailsLite(
+    volumeInfo,
+    addedToFavorites
+  );
+
+  const finishedImage: JSX.Element = (
+    <div onClick={e => handleClick(e, id)} className={style.imageContainer}>
+      <img src={image} alt={`Book = ${title}`} />
+    </div>
+  );
+
   return (
-    <div onClick={handleClick} className={style.card}>
-      <p>{bookTitle}</p>
+    <div className={style.card}>
+      <p>{title}</p>
       {finishedImage}
+      <ToolTip visible={visible}>
+        <button
+          title={buttonTitle}
+          className={style.button}
+          onClick={handleFavoriteClick}
+        >
+          {buttonText}
+        </button>
+      </ToolTip>
     </div>
   );
 };

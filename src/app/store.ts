@@ -2,13 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 import AuthorizationReducer from '../features/featureAuthorization/AuthorizationSlice';
-import RandomNumbersReducer from '../features/featureBooks/RandomNumbersSlice';
-import { bookApi } from '../services/booksApi';
+import { bookApi } from '../features/featureBooksApi/booksApi';
 
 const store = configureStore({
   reducer: {
     authorization: AuthorizationReducer,
-    random: RandomNumbersReducer,
     [bookApi.reducerPath]: bookApi.reducer,
   },
   middleware: getDefaultMiddleware =>

@@ -5,10 +5,13 @@ import { Navigate, Outlet } from 'react-router-dom';
 import type { User } from '../types/types';
 interface Props {
   user: User | null;
-  redirectPath?: '/';
+  redirectPath?: string;
 }
 
-export const ProtectedRoute: FC<Props> = ({ user, redirectPath = '/' }) => {
+export const ProtectedRoute: FC<Props> = ({
+  user,
+  redirectPath = '/signup',
+}) => {
   if (!user) {
     return <Navigate to={redirectPath} replace />;
   }

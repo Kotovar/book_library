@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type { ReactElement } from 'react';
 
 import style from './ToolTip.module.css';
@@ -8,7 +7,7 @@ type Props = {
   visible: boolean;
 };
 
-const ToolTip: FC<Props> = ({ children, visible = false }) => {
+const ToolTip = ({ children, visible = false }: Props) => {
   return (
     <div className={style['tooltip-container']}>
       {children}

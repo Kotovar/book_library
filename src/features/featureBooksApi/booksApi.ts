@@ -1,8 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import type { Book, BookSearch, VolumeInfo } from '../types/types';
-
-type BooksArrayResult = Book[] | [];
+import type {
+  Book,
+  BookSearch,
+  VolumeInfo,
+  BooksArrayResult,
+} from '../../types/types';
 
 export const bookApi = createApi({
   reducerPath: 'bookApi',
@@ -16,7 +19,7 @@ export const bookApi = createApi({
     }),
 
     findBookByName: builder.query<BooksArrayResult, string>({
-      query: name => `volumes?q=${name}`,
+      query: name => `volumes?q=${name}&maxResults=20&printType=books`,
       transformResponse: (response: BookSearch) => response.items ?? [],
     }),
   }),

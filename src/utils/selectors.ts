@@ -3,7 +3,6 @@ import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '../app/store';
 
 const selectAuthState = (state: RootState) => state.authorization;
-const selectRandomState = (state: RootState) => state.random;
 
 export const selectIsAuthenticated = createSelector(
   [selectAuthState],
@@ -25,7 +24,10 @@ export const selectUser = createSelector(
   authorizationState => authorizationState.user
 );
 
-export const selectRandomNumber = createSelector(
-  [selectRandomState],
-  randomState => randomState.value
+export const selectIsFavorite = createSelector(
+  [selectUser, (_, bookId: string) => bookId],
+  (user, bookId) => user?.favorites?.includes(bookId) ?? false
 );
+
+export const makeSelectIsFavorite = (bookId: string) => (state: RootState) =>
+  selectIsFavorite(state, bookId);

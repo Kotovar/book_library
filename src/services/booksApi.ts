@@ -19,7 +19,7 @@ export const bookApi = createApi({
     }),
 
     findBookByName: builder.query<BooksArrayResult, string>({
-      query: name => `volumes?q=${name}`,
+      query: name => `volumes?q=${name}&maxResults=20&printType=books`,
       transformResponse: (response: BookSearch) => response.items ?? [],
     }),
   }),

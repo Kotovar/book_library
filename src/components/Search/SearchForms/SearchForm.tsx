@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
@@ -24,13 +24,7 @@ export const SearchForm = ({ searchParams }: Props) => {
     }
   );
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [searchParams]);
+  const numberOfSuggest = 5;
 
   const checkKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === 'Enter') {
@@ -50,14 +44,17 @@ export const SearchForm = ({ searchParams }: Props) => {
 
   const listBooks =
     searchTerm !== '' && data
-      ? data.map(book => {
-          return (
-            <SearchResultsForm
-              key={book.id}
-              id={book.id}
-              volumeInfo={book.volumeInfo}
-            />
-          );
+      ? data.map((book, index) => {
+          if (index < numberOfSuggest) {
+            return (
+              <SearchResultsForm
+                key={book.id}
+                id={book.id}
+                volumeInfo={book.volumeInfo}
+              />
+            );
+          }
+          return null;
         })
       : null;
 
@@ -70,7 +67,6 @@ export const SearchForm = ({ searchParams }: Props) => {
       <form className={style.form} onSubmit={handleSubmit}>
         <div>
           <input
-            ref={inputRef}
             className={style.input}
             type='text'
             value={searchTerm}

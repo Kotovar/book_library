@@ -65,7 +65,7 @@ export const BookCardLarge = () => {
     <main onClick={handleMainClick}>
       <div className={style.container}>
         <h1>{data.title ?? 'No name'}</h1>
-        <p>{data.subtitle ?? 'No description'}</p>
+        <p>{data.description ?? 'No description'}</p>
         <p>{authors}</p>
         <p>{`Language: ${data.language}`}</p>
         <p>{`Pages: ${data.pageCount}`}</p>

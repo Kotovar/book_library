@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
 import { useAppSelector } from '../../app/hooks';
-import { useFindBookByNameQuery } from '../../services/booksApi';
-import { selectRandomNumber, selectUser } from '../../utils/selectors';
+import type { VolumeInfo } from '../../types/types';
+import { selectUser } from '../../utils/selectors';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
 import { useHandleClick } from '../../utils/useHandleClick';
 import ToolTip from '../ToolTipComponent/ToolTip';
@@ -10,12 +10,11 @@ import ToolTip from '../ToolTipComponent/ToolTip';
 import style from './BookCardMini.module.css';
 
 interface Props {
-  bookName: string;
+  id: string;
+  volumeInfo: VolumeInfo;
 }
 
-export const BookCardMini = ({ bookName }: Props) => {
-  const { data, error, isLoading } = useFindBookByNameQuery(bookName);
-  const randomNumber = useAppSelector(selectRandomNumber);
+export const BookCardMini = ({ id, volumeInfo }: Props) => {
   const [visible, setVisible] = useState<boolean>(true);
   const handleClick = useHandleClick();
   const changeFavorites = useChangeFavorites();
@@ -31,37 +30,27 @@ export const BookCardMini = ({ bookName }: Props) => {
     return () => clearTimeout(timer);
   }, [visible]);
 
-  if (error) return <p>Error loading book.</p>;
-  if (isLoading) return <p>Loading...</p>;
-  if (!data) return null;
-
-  const bookId = data[randomNumber]?.id;
-
   const handleFavoriteClick = () => {
     if (!user) {
       setVisible(false);
       return;
     }
-    if (bookId) {
-      changeFavorites(bookId, addedToFavorites);
-    }
+
+    changeFavorites(id, addedToFavorites);
   };
 
-  const addedToFavorites = bookId
-    ? user?.favorites.includes(bookId) ?? false
-    : false;
+  const addedToFavorites = id ? user?.favorites.includes(id) ?? false : false;
 
   const buttonText = addedToFavorites ? '♥' : '♡';
   const buttonTitle = addedToFavorites
     ? 'Remove from favorites'
     : 'Add to favorites';
   const noBookCover = '../../../public/NoBookCover.webp';
-  const bookTitle = data[randomNumber]?.volumeInfo?.title || 'Untitled';
+  const bookTitle = volumeInfo.title || 'Untitled';
 
-  const image =
-    data[randomNumber]?.volumeInfo?.imageLinks?.thumbnail || noBookCover;
+  const image = volumeInfo.imageLinks?.thumbnail || noBookCover;
   const finishedImage: JSX.Element = (
-    <div onClick={e => handleClick(e, bookId)} className={style.imageContainer}>
+    <div onClick={e => handleClick(e, id)} className={style.imageContainer}>
       <img src={image ?? noBookCover} alt={`Book = ${bookTitle}`} />
     </div>
   );

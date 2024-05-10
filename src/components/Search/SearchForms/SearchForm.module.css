@@ -55,10 +55,3 @@
 .input-button {
   grid-area: input-button;
 }
-
-.button {
-  background-color: transparent;
-  border: none;
-  color: red;
-  font-size: 1.5rem;
-}

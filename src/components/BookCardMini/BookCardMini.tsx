@@ -1,8 +1,6 @@
-import { useAppSelector } from '../../app/hooks';
 import type { VolumeInfo } from '../../types/types';
 import { getBookDetailsLite } from '../../utils/getBookDetails';
-import { selectUser } from '../../utils/selectors';
-import { makeSelectIsFavorite } from '../../utils/selectors';
+import { useBookDetails } from '../../utils/useBookDetails';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
 import { useHandleNavigateClick } from '../../utils/useHandleNavigateClick';
 import { useVisibilityTimer } from '../../utils/useVisibilityTimer';
@@ -18,8 +16,7 @@ interface Props {
 export const BookCardMini = ({ id, volumeInfo }: Props) => {
   const handleClick = useHandleNavigateClick();
   const changeFavorites = useChangeFavorites();
-  const user = useAppSelector(selectUser);
-  const addedToFavorites = useAppSelector(makeSelectIsFavorite(id));
+  const { user, addedToFavorites } = useBookDetails(id);
   const [visible, setVisible] = useVisibilityTimer();
 
   const handleFavoriteClick = () => {
@@ -28,7 +25,7 @@ export const BookCardMini = ({ id, volumeInfo }: Props) => {
       return;
     }
 
-    changeFavorites(id, addedToFavorites);
+    changeFavorites(id);
   };
 
   const { buttonText, buttonTitle, image, title } = getBookDetailsLite(

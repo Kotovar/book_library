@@ -1,9 +1,9 @@
-import { useAppSelector } from '../../app/hooks';
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
 import { getBookDetailsLite } from '../../utils/getBookDetails';
-import { makeSelectIsFavorite } from '../../utils/selectors';
+import { useBookDetails } from '../../utils/useBookDetails';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
 import { useHandleNavigateClick } from '../../utils/useHandleNavigateClick';
+import { FetchStatus } from '../FetchStatus/FetchStatus';
 
 import style from './BookCardMini.module.css';
 
@@ -15,15 +15,10 @@ export const BookCardMiniFavorite = ({ bookId }: Props) => {
   const { data, error, isLoading } = useGetBookByIdQuery(bookId);
   const handleClick = useHandleNavigateClick();
   const changeFavorites = useChangeFavorites();
-  const addedToFavorites = useAppSelector(makeSelectIsFavorite(bookId));
-
-  if (error) return <p>Error loading book.</p>;
-  if (isLoading) return <p>Loading...</p>;
-
-  if (!data) return null;
+  const { addedToFavorites } = useBookDetails(bookId);
 
   const handleFavoriteClick = async () => {
-    await changeFavorites(bookId, addedToFavorites);
+    await changeFavorites(bookId);
   };
 
   const bookDetails = data ? getBookDetailsLite(data, addedToFavorites) : null;
@@ -39,16 +34,18 @@ export const BookCardMiniFavorite = ({ bookId }: Props) => {
   );
 
   return (
-    <div className={style.card}>
-      <p>{title}</p>
-      {finishedImage}
-      <button
-        title={buttonTitle}
-        className={style.button}
-        onClick={handleFavoriteClick}
-      >
-        {buttonText}
-      </button>
-    </div>
+    <FetchStatus isLoading={isLoading} error={error} data={data}>
+      <div className={style.card}>
+        <p>{title}</p>
+        {finishedImage}
+        <button
+          title={buttonTitle}
+          className={style.button}
+          onClick={handleFavoriteClick}
+        >
+          {buttonText}
+        </button>
+      </div>
+    </FetchStatus>
   );
 };

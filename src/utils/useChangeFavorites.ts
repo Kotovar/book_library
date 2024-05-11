@@ -11,12 +11,12 @@ export const useChangeFavorites = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
 
-  const changeFavorites = async (bookId: string, addedToFavorites: boolean) => {
+  const changeFavorites = async (bookId: string) => {
     if (!user) {
       return;
     }
 
-    if (addedToFavorites) {
+    if (user.favorites.includes(bookId)) {
       dispatch(removeFavorite(bookId));
 
       await removeUserFavorite(user.uid, bookId);

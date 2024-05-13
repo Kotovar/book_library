@@ -1,42 +1,29 @@
 import { useParams } from 'react-router-dom';
 
-import { useAppSelector } from '../../app/hooks';
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
 import { getBookDetailsFull } from '../../utils/getBookDetails';
-import { makeSelectIsFavorite, selectUser } from '../../utils/selectors';
+import { useBookDetails } from '../../utils/useBookDetails';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
 import { useVisibilityTimer } from '../../utils/useVisibilityTimer';
+import { FetchStatus } from '../FetchStatus/FetchStatus';
 import ToolTip from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardLarge.module.css';
 
-export const BookCardLarge = () => {
+const BookCardLarge = () => {
   const { id } = useParams() as { id: string };
   const { data, error, isLoading } = useGetBookByIdQuery(id);
-  const user = useAppSelector(selectUser);
-  const addedToFavorites = useAppSelector(makeSelectIsFavorite(id));
+  const { user, addedToFavorites } = useBookDetails(id);
   const changeFavorites = useChangeFavorites();
   const [visible, setVisible] = useVisibilityTimer();
-
-  const handleMainClick = (e: React.MouseEvent<HTMLElement>) => {
-    const target = e.target as HTMLElement;
-    if (target.tagName !== 'BUTTON') {
-      setVisible(true);
-    }
-  };
 
   const handleFavoriteClick = () => {
     if (!user) {
       setVisible(false);
       return;
     }
-    if (id) {
-      changeFavorites(id, addedToFavorites);
-    }
+    changeFavorites(id);
   };
-
-  if (error) return <p className={style.p}>Error loading book.</p>;
-  if (isLoading) return <p className={style.p}>Loading...</p>;
 
   const bookDetails = data ? getBookDetailsFull(data, addedToFavorites) : null;
 
@@ -46,21 +33,25 @@ export const BookCardLarge = () => {
     bookDetails;
 
   return (
-    <main onClick={handleMainClick}>
-      <div className={style.container}>
-        <h1>{title}</h1>
-        <p>{description}</p>
-        <p>{authors}</p>
-        <p>{language}</p>
-        <p>{pages}</p>
-        <div className={style['image-container']}>
-          <img src={image} alt={`${title} cover`} />
-        </div>
+    <FetchStatus isLoading={isLoading} error={error} data={data}>
+      <main>
+        <div className={style.container}>
+          <h1>{title}</h1>
+          <p>{description}</p>
+          <p>{authors}</p>
+          <p>{language}</p>
+          <p>{pages}</p>
+          <div className={style['image-container']}>
+            <img src={image} alt={`${title} cover`} />
+          </div>
 
-        <ToolTip visible={visible}>
-          <button onClick={handleFavoriteClick}>{text}</button>
-        </ToolTip>
-      </div>
-    </main>
+          <ToolTip visible={visible}>
+            <button onClick={handleFavoriteClick}>{text}</button>
+          </ToolTip>
+        </div>
+      </main>
+    </FetchStatus>
   );
 };
+
+export default BookCardLarge;

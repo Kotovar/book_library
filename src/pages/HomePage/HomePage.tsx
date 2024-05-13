@@ -1,10 +1,11 @@
+import { BookCardMini } from '../../components/BookCardMini/BookCardMini';
+import { FetchStatus } from '../../components/FetchStatus/FetchStatus';
+import { SearchForm } from '../../components/SearchForms/SearchForm';
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
-import { BookCardMini } from '../BookCardMini/BookCardMini';
-import { SearchForm } from '../SearchForms/SearchForm';
 
 import style from './HomePage.module.css';
 
-export const HomePage = () => {
+const HomePage = () => {
   const { data, error, isLoading } = useFindBookByNameQuery('programming');
 
   let listBooks;
@@ -22,9 +23,11 @@ export const HomePage = () => {
     <main>
       <h1>Home page</h1>
       <SearchForm />
-      {isLoading && <p style={{ textAlign: 'center' }}>Loading...</p>}
-      {error && <p>Error occurred: {error.toString()}</p>}
-      <ul className={style.ul}>{listBooks}</ul>
+      <FetchStatus isLoading={isLoading} error={error} data={data}>
+        <ul className={style.ul}>{listBooks}</ul>
+      </FetchStatus>
     </main>
   );
 };
+
+export default HomePage;

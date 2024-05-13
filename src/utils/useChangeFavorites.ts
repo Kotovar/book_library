@@ -11,19 +11,22 @@ export const useChangeFavorites = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
 
-  const changeFavorites = async (bookId: string, addedToFavorites: boolean) => {
+  const changeFavorites = async (bookId: string) => {
     if (!user) {
       return;
     }
 
-    if (addedToFavorites) {
-      dispatch(removeFavorite(bookId));
+    const userWithFavorites = {
+      ...user,
+      favorites: user.favorites || [],
+    };
 
+    if (userWithFavorites.favorites.includes(bookId)) {
+      dispatch(removeFavorite(bookId));
       await removeUserFavorite(user.uid, bookId);
     } else {
-      const updatedFavorites = [...user.favorites, bookId];
+      const updatedFavorites = [...userWithFavorites.favorites, bookId];
       dispatch(addFavorite(updatedFavorites));
-
       await writeUserData(user.uid, updatedFavorites, user.history);
     }
   };

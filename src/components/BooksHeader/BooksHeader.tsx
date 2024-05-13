@@ -1,28 +1,22 @@
 import { signOut } from 'firebase/auth';
+import { Toaster } from 'react-hot-toast';
 import { Outlet, Link } from 'react-router-dom';
 
 import HeaderLogo from '../../../public/library.svg';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { logOut } from '../../features/featureAuthorization/AuthorizationSlice';
+import { useAppSelector } from '../../app/hooks';
 import { auth } from '../../services/firebaseConfig';
 import { selectIsAuthenticated, selectIsLoaded } from '../../utils/selectors';
 
 import styles from './BooksHeader.module.css';
 
-export const BooksHeader = () => {
+const BooksHeader = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const isLoading = useAppSelector(selectIsLoaded);
 
-  const dispatch = useAppDispatch();
-
   function logOutFirebase() {
-    signOut(auth)
-      .then(() => {
-        dispatch(logOut());
-      })
-      .catch(error => {
-        throw new Error(error);
-      });
+    signOut(auth).catch(error => {
+      throw new Error(error);
+    });
   }
 
   let headerContent;
@@ -53,8 +47,10 @@ export const BooksHeader = () => {
         </Link>
         <nav className={styles.buttonPanel}>{headerContent}</nav>
       </header>
-
+      <Toaster />
       <Outlet />
     </>
   );
 };
+
+export default BooksHeader;

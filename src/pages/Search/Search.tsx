@@ -1,12 +1,13 @@
 import { useSearchParams } from 'react-router-dom';
 
+import { BookCardMini } from '../../components/BookCardMini/BookCardMini';
+import { FetchStatus } from '../../components/FetchStatus/FetchStatus';
+import { SearchForm } from '../../components/SearchForms/SearchForm';
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
-import { BookCardMini } from '../BookCardMini/BookCardMini';
-import { SearchForm } from '../SearchForms/SearchForm';
 
-import style from './SearchComponent.module.css';
+import style from './Search.module.css';
 
-export const SearchComponent = () => {
+const SearchComponent = () => {
   const [searchParams] = useSearchParams();
   const searchQuery = [...searchParams.keys()][0];
 
@@ -29,13 +30,11 @@ export const SearchComponent = () => {
     <main>
       <h1>Search</h1>
       <SearchForm searchParams={searchQuery} />
-      {isLoading && <p style={{ textAlign: 'center' }}>Loading...</p>}
-      {error && (
-        <p style={{ textAlign: 'center' }}>
-          Error occurred: {error.toString()}
-        </p>
-      )}
-      <ul className={style.ul}>{listBooks}</ul>
+      <FetchStatus isLoading={isLoading} error={error} data={data}>
+        <ul className={style.ul}>{listBooks}</ul>
+      </FetchStatus>
     </main>
   );
 };
+
+export default SearchComponent;

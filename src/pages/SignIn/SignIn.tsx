@@ -6,13 +6,9 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  logIn,
-  getError,
-} from '../../features/featureAuthorization/AuthorizationSlice';
+import { getError } from '../../features/featureAuthorization/AuthorizationSlice';
 import { auth } from '../../services/firebaseConfig';
 import type { FirebaseError } from '../../types/types';
-import { getFirebaseData } from '../../utils/getFirebaseData';
 import { selectErrors } from '../../utils/selectors';
 
 import styles from './SignIn.module.css';
@@ -22,7 +18,7 @@ interface IFormInput {
   password: string;
 }
 
-export const SignIn = () => {
+const SignIn = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -30,22 +26,13 @@ export const SignIn = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(getError(null));
+      if (errors) dispatch(getError(null));
     };
-  }, [dispatch]);
+  }, [dispatch, errors]);
 
   const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-      const [favorites = [], history = []] = await getFirebaseData(user.uid);
-      dispatch(
-        logIn({ uid: user.uid, favorites: favorites, history: history })
-      );
+      await signInWithEmailAndPassword(auth, email, password);
       navigate(-1);
     } catch (error) {
       if ((error as FirebaseError).code) {
@@ -95,3 +82,5 @@ export const SignIn = () => {
     </main>
   );
 };
+
+export default SignIn;

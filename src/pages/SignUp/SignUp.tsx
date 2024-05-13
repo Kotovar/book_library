@@ -6,10 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  logIn,
-  getError,
-} from '../../features/featureAuthorization/AuthorizationSlice';
+import { getError } from '../../features/featureAuthorization/AuthorizationSlice';
 import { auth } from '../../services/firebaseConfig';
 import type { FirebaseError } from '../../types/types';
 import { selectErrors } from '../../utils/selectors';
@@ -21,7 +18,7 @@ interface IFormInput {
   password: string;
 }
 
-export const SignUp = () => {
+const SignUp = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -29,16 +26,13 @@ export const SignUp = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(getError(null));
+      if (errors) dispatch(getError(null));
     };
-  }, [dispatch]);
+  }, [dispatch, errors]);
 
   const onSubmit: SubmitHandler<IFormInput> = ({ email, password }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
-        const user = userCredential.user;
-
-        dispatch(logIn({ uid: user.uid, favorites: [], history: [] }));
         navigate('/');
       })
       .catch((error: FirebaseError) => {
@@ -85,3 +79,5 @@ export const SignUp = () => {
     </main>
   );
 };
+
+export default SignUp;

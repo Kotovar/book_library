@@ -4,8 +4,8 @@ export type FirebaseError = {
 
 export type User = {
   uid: string;
-  favorites: string[];
-  history: string[];
+  favorites?: string[];
+  history?: string[];
 };
 
 export interface Book {
@@ -42,4 +42,8 @@ export interface BookSearch {
   kind: string;
   items?: Book[];
   totalItems: number;
+}
+
+export interface Route {
+  redirectPath?: string;
 }

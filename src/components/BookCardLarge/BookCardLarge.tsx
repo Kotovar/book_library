@@ -6,12 +6,12 @@ import { useBookDetails } from '../../utils/useBookDetails';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
 import { useVisibilityTimer } from '../../utils/useVisibilityTimer';
 import { FetchStatus } from '../FetchStatus/FetchStatus';
-import ToolTip from '../ToolTipComponent/ToolTip';
+import { ToolTip } from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardLarge.module.css';
 
 const BookCardLarge = () => {
-  const { id } = useParams() as { id: string };
+  const { id = '' } = useParams();
   const { data, error, isLoading } = useGetBookByIdQuery(id);
   const { user, addedToFavorites } = useBookDetails(id);
   const changeFavorites = useChangeFavorites();
@@ -25,12 +25,8 @@ const BookCardLarge = () => {
     changeFavorites(id);
   };
 
-  const bookDetails = data ? getBookDetailsFull(data, addedToFavorites) : null;
-
-  if (!bookDetails) return null;
-
   const { image, authors, text, title, description, language, pages } =
-    bookDetails;
+    getBookDetailsFull(data, addedToFavorites);
 
   return (
     <FetchStatus isLoading={isLoading} error={error} data={data}>
@@ -41,12 +37,14 @@ const BookCardLarge = () => {
           <p>{authors}</p>
           <p>{language}</p>
           <p>{pages}</p>
-          <div className={style['image-container']}>
+          <div className={style.imageContainer}>
             <img src={image} alt={`${title} cover`} />
           </div>
 
           <ToolTip visible={visible}>
-            <button onClick={handleFavoriteClick}>{text}</button>
+            <button onClick={handleFavoriteClick} aria-label='Add to favorites'>
+              {text}
+            </button>
           </ToolTip>
         </div>
       </main>

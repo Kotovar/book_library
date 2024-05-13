@@ -4,8 +4,7 @@ export const useHandleNavigateClick = () => {
   const navigate = useNavigate();
 
   const handleClick = (e: React.MouseEvent<HTMLElement>, bookId: string) => {
-    const target = e.target as HTMLElement;
-    if (target.tagName !== 'BUTTON') {
+    if (e.currentTarget.tagName !== 'BUTTON') {
       navigate(`/book/${bookId}`);
     }
   };

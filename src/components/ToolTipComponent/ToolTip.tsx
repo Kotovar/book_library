@@ -7,7 +7,7 @@ type Props = {
   visible: boolean;
 };
 
-const ToolTip = ({ children, visible = false }: Props) => {
+export const ToolTip = ({ children, visible = false }: Props) => {
   return (
     <div className={style['tooltip-container']}>
       {children}
@@ -18,5 +18,3 @@ const ToolTip = ({ children, visible = false }: Props) => {
     </div>
   );
 };
-
-export default ToolTip;

@@ -72,4 +72,5 @@ export const {
   addHistory,
   removeHistory,
 } = authorizationSlice.actions;
+
 export default authorizationSlice.reducer;

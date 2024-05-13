@@ -4,7 +4,7 @@ import { useBookDetails } from '../../utils/useBookDetails';
 import { useChangeFavorites } from '../../utils/useChangeFavorites';
 import { useHandleNavigateClick } from '../../utils/useHandleNavigateClick';
 import { useVisibilityTimer } from '../../utils/useVisibilityTimer';
-import ToolTip from '../ToolTipComponent/ToolTip';
+import { ToolTip } from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardMini.module.css';
 

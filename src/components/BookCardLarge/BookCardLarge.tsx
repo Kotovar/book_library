@@ -17,13 +17,6 @@ export const BookCardLarge = () => {
   const changeFavorites = useChangeFavorites();
   const [visible, setVisible] = useVisibilityTimer();
 
-  const handleMainClick = (e: React.MouseEvent<HTMLElement>) => {
-    const target = e.target as HTMLElement;
-    if (target.tagName !== 'BUTTON') {
-      setVisible(true);
-    }
-  };
-
   const handleFavoriteClick = () => {
     if (!user) {
       setVisible(false);
@@ -41,7 +34,7 @@ export const BookCardLarge = () => {
 
   return (
     <FetchStatus isLoading={isLoading} error={error} data={data}>
-      <main onClick={handleMainClick}>
+      <main>
         <div className={style.container}>
           <h1>{title}</h1>
           <p>{description}</p>

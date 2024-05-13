@@ -4,7 +4,7 @@ import { useAppSelector } from '../app/hooks';
 import { BookCardLarge } from '../components/BookCardLarge/BookCardLarge';
 import { BooksHeader } from '../components/BooksHeader/BooksHeader';
 import { Favorites } from '../components/Favorites/Favorites';
-import { History } from '../components/History/History';
+import { History } from '../components/HistoryComponent/HistoryComponent';
 import { HomePage } from '../components/HomePage/HomePage';
 import { NotFound } from '../components/NotFound/NotFound';
 import { SearchComponent } from '../components/SearchComponent/SearchComponent';

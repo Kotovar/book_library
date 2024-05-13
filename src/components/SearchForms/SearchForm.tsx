@@ -3,9 +3,7 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
-import { useAppSelector } from '../../app/hooks';
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
-import { selectUser } from '../../utils/selectors';
 import { useChangeHistory } from '../../utils/useChangeHistory';
 import { Suggest } from '../Suggest/Suggest';
 
@@ -19,7 +17,6 @@ export const SearchForm = ({ searchParams }: Props) => {
   const [visibleResults, setVisibleResults] = useState(true);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const navigate = useNavigate();
-  const user = useAppSelector(selectUser);
   const changeHistory = useChangeHistory();
   const { data, error, isLoading } = useFindBookByNameQuery(
     debouncedSearchTerm,
@@ -33,11 +30,9 @@ export const SearchForm = ({ searchParams }: Props) => {
   const handleSearch = useCallback(() => {
     if (searchTerm.trim() !== '') {
       navigate(`/search?${searchTerm}`);
-      if (user) {
-        changeHistory(user, true, searchTerm);
-      }
+      changeHistory(true, searchTerm);
     }
-  }, [navigate, searchTerm, user, changeHistory]);
+  }, [navigate, searchTerm, changeHistory]);
 
   const checkKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLElement>) => {

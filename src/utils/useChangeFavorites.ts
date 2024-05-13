@@ -16,14 +16,17 @@ export const useChangeFavorites = () => {
       return;
     }
 
-    if (user.favorites.includes(bookId)) {
-      dispatch(removeFavorite(bookId));
+    const userWithFavorites = {
+      ...user,
+      favorites: user.favorites || [],
+    };
 
+    if (userWithFavorites.favorites.includes(bookId)) {
+      dispatch(removeFavorite(bookId));
       await removeUserFavorite(user.uid, bookId);
     } else {
-      const updatedFavorites = [...user.favorites, bookId];
+      const updatedFavorites = [...userWithFavorites.favorites, bookId];
       dispatch(addFavorite(updatedFavorites));
-
       await writeUserData(user.uid, updatedFavorites, user.history);
     }
   };

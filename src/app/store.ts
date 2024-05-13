@@ -4,13 +4,17 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import AuthorizationReducer from '../features/featureAuthorization/AuthorizationSlice';
 import { bookApi } from '../features/featureBooksApi/booksApi';
 
+import { listenerMiddleware } from './middlewares/userAuth';
 const store = configureStore({
   reducer: {
     authorization: AuthorizationReducer,
     [bookApi.reducerPath]: bookApi.reducer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(bookApi.middleware),
+    getDefaultMiddleware().concat(
+      bookApi.middleware,
+      listenerMiddleware.middleware
+    ),
 });
 
 setupListeners(store.dispatch);

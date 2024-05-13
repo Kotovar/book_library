@@ -10,7 +10,7 @@ import ToolTip from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardLarge.module.css';
 
-export const BookCardLarge = () => {
+const BookCardLarge = () => {
   const { id } = useParams() as { id: string };
   const { data, error, isLoading } = useGetBookByIdQuery(id);
   const { user, addedToFavorites } = useBookDetails(id);
@@ -53,3 +53,5 @@ export const BookCardLarge = () => {
     </FetchStatus>
   );
 };
+
+export default BookCardLarge;

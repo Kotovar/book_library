@@ -1,10 +1,10 @@
 import { useAppSelector } from '../../app/hooks';
+import { BookCardMiniFavorite } from '../../components/BookCardMini/BookCardMiniFavorite';
 import { selectUser } from '../../utils/selectors';
-import { BookCardMiniFavorite } from '../BookCardMini/BookCardMiniFavorite';
 
 import style from './Favorites.module.css';
 
-export const Favorites = () => {
+const Favorites = () => {
   const user = useAppSelector(selectUser);
   const userFavorites = user?.favorites || [];
 
@@ -31,3 +31,5 @@ export const Favorites = () => {
     </main>
   );
 };
+
+export default Favorites;

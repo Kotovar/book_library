@@ -43,3 +43,7 @@ export interface BookSearch {
   items?: Book[];
   totalItems: number;
 }
+
+export interface Route {
+  redirectPath?: string;
+}

@@ -39,7 +39,7 @@ export const authorizationSlice = createSlice({
       }
     },
     removeFavorite: (state, action: PayloadAction<string>) => {
-      if (state.user) {
+      if (state.user && state.user.favorites) {
         state.user.favorites = state.user.favorites.filter(
           id => id !== action.payload
         );
@@ -51,7 +51,7 @@ export const authorizationSlice = createSlice({
       }
     },
     removeHistory: (state, action: PayloadAction<string>) => {
-      if (state.user) {
+      if (state.user && state.user.history) {
         state.user.history = state.user.history.filter(
           id => id !== action.payload
         );

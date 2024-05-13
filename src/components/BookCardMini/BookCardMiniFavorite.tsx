@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
 import { getBookDetailsLite } from '../../utils/getBookDetails';
 import { useBookDetails } from '../../utils/useBookDetails';
@@ -48,4 +50,8 @@ export const BookCardMiniFavorite = ({ bookId }: Props) => {
       </div>
     </FetchStatus>
   );
+};
+
+BookCardMiniFavorite.propTypes = {
+  bookId: PropTypes.string,
 };

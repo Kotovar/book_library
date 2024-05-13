@@ -1,28 +1,34 @@
+import { lazy, Suspense } from 'react';
+
 import { Route, Routes } from 'react-router-dom';
 
 import { useAppSelector } from '../app/hooks';
-import { BookCardLarge } from '../components/BookCardLarge/BookCardLarge';
-import { BooksHeader } from '../components/BooksHeader/BooksHeader';
-import { Favorites } from '../components/Favorites/Favorites';
-import { History } from '../components/HistoryComponent/HistoryComponent';
-import { HomePage } from '../components/HomePage/HomePage';
-import { NotFound } from '../components/NotFound/NotFound';
-import { SearchComponent } from '../components/SearchComponent/SearchComponent';
-import { SignIn } from '../components/SignIn/SignIn';
-import { SignUp } from '../components/SignUp/SignUp';
-import { selectUser, selectIsLoaded } from '../utils/selectors';
+import BooksHeader from '../components/BooksHeader/BooksHeader';
+import { Loader } from '../components/Loader/Loader';
+import History from '../pages/History/History';
+import NotFound from '../pages/NotFound/NotFound';
+import SignIn from '../pages/SignIn/SignIn';
+import SignUp from '../pages/SignUp/SignUp';
+import { selectIsLoaded } from '../utils/selectors';
 
-import { ProtectedRoute, PublicRoute } from './UsersRoutes';
+import ProtectedRoute from './ProtectedRoute';
+import PublicRoute from './PublicRoute';
+
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
+const FavoritesPage = lazy(() => import('../pages/Favorites/Favorites'));
+const BookCardLargePage = lazy(
+  () => import('../components/BookCardLarge/BookCardLarge')
+);
+const SearchComponentPage = lazy(() => import('../pages/Search/Search'));
 
 export const Router = () => {
-  const user = useAppSelector(selectUser);
   const isLoading = useAppSelector(selectIsLoaded);
 
   if (isLoading) {
     return (
       <>
         <BooksHeader />
-        <p style={{ textAlign: 'center' }}>Loading...</p>
+        <Loader />
       </>
     );
   }
@@ -30,17 +36,45 @@ export const Router = () => {
   return (
     <Routes>
       <Route path='/' element={<BooksHeader />}>
-        <Route index element={<HomePage />} />
-        <Route element={<PublicRoute user={user} />}>
+        <Route
+          index
+          element={
+            <Suspense fallback={<Loader />}>
+              <HomePage />
+            </Suspense>
+          }
+        />
+        <Route element={<PublicRoute />}>
           <Route path='/signin' element={<SignIn />} />
           <Route path='/signup' element={<SignUp />} />
         </Route>
-        <Route element={<ProtectedRoute user={user} />}>
-          <Route path='/favorites' element={<Favorites />} />
+        <Route element={<ProtectedRoute />}>
+          <Route
+            path='/favorites'
+            element={
+              <Suspense fallback={<Loader />}>
+                <FavoritesPage />
+              </Suspense>
+            }
+          />
           <Route path='/history' element={<History />} />
         </Route>
-        <Route path='/book/:id' element={<BookCardLarge />} />
-        <Route path='/search' element={<SearchComponent />} />
+        <Route
+          path='/book/:id'
+          element={
+            <Suspense fallback={<Loader />}>
+              <BookCardLargePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/search'
+          element={
+            <Suspense fallback={<Loader />}>
+              <SearchComponentPage />
+            </Suspense>
+          }
+        />
       </Route>
       <Route path='*' element={<NotFound />} />
     </Routes>

@@ -1,11 +1,11 @@
+import { BookCardMini } from '../../components/BookCardMini/BookCardMini';
+import { FetchStatus } from '../../components/FetchStatus/FetchStatus';
+import { SearchForm } from '../../components/SearchForms/SearchForm';
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
-import { BookCardMini } from '../BookCardMini/BookCardMini';
-import { FetchStatus } from '../FetchStatus/FetchStatus';
-import { SearchForm } from '../SearchForms/SearchForm';
 
 import style from './HomePage.module.css';
 
-export const HomePage = () => {
+const HomePage = () => {
   const { data, error, isLoading } = useFindBookByNameQuery('programming');
 
   let listBooks;
@@ -29,3 +29,5 @@ export const HomePage = () => {
     </main>
   );
 };
+
+export default HomePage;

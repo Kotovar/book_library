@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  eslint:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,3 +27,5 @@ jobs:
         run: npm run format
       - name: Build project
         run: npm run build
+      - name: Types Checking
+        run: npm run type-check

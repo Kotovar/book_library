@@ -3,16 +3,16 @@ import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { useAppSelector } from '../app/hooks';
-import BooksHeader from '../components/BooksHeader/BooksHeader';
+import { BooksHeader } from '../components/BooksHeader/BooksHeader';
 import { Loader } from '../components/Loader/Loader';
-import History from '../pages/History/History';
-import NotFound from '../pages/NotFound/NotFound';
-import SignIn from '../pages/SignIn/SignIn';
-import SignUp from '../pages/SignUp/SignUp';
+import { History } from '../pages/History/History';
+import { NotFound } from '../pages/NotFound/NotFound';
+import { SignIn } from '../pages/SignIn/SignIn';
+import { SignUp } from '../pages/SignUp/SignUp';
 import { selectIsLoaded } from '../utils/selectors';
 
-import ProtectedRoute from './ProtectedRoute';
-import PublicRoute from './PublicRoute';
+import { ProtectedRoute } from './ProtectedRoute';
+import { PublicRoute } from './PublicRoute';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const FavoritesPage = lazy(() => import('../pages/Favorites/Favorites'));

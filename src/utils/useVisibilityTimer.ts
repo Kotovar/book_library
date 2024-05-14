@@ -8,7 +8,7 @@ export const useVisibilityTimer = (
   const [visible, setVisible] = useState<boolean>(initialVisibility);
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
+    let timer: NodeJS.Timeout;
 
     if (!visible) {
       timer = setTimeout(() => {

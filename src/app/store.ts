@@ -6,7 +6,7 @@ import { bookApi } from '../features/featureBooksApi/booksApi';
 
 import { listenerMiddleware } from './middlewares/userAuth';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     authorization: AuthorizationReducer,
     [bookApi.reducerPath]: bookApi.reducer,
@@ -22,5 +22,3 @@ setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-export default store;

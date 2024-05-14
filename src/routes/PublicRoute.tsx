@@ -4,7 +4,7 @@ import { useAppSelector } from '../app/hooks';
 import type { Route } from '../types/types';
 import { selectUser } from '../utils/selectors';
 
-const PublicRoute = ({ redirectPath = '/' }: Route) => {
+export const PublicRoute = ({ redirectPath = '/' }: Route) => {
   const user = useAppSelector(selectUser);
 
   if (user) {
@@ -13,5 +13,3 @@ const PublicRoute = ({ redirectPath = '/' }: Route) => {
 
   return <Outlet />;
 };
-
-export default PublicRoute;

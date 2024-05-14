@@ -15,19 +15,18 @@ interface Props {
 
 export const BookCardMiniFavorite = ({ bookId }: Props) => {
   const { data, error, isLoading } = useGetBookByIdQuery(bookId);
+  const { addedToFavorites } = useBookDetails(bookId);
   const handleClick = useHandleNavigateClick();
   const changeFavorites = useChangeFavorites();
-  const { addedToFavorites } = useBookDetails(bookId);
 
   const handleFavoriteClick = async () => {
     await changeFavorites(bookId);
   };
 
-  const bookDetails = data ? getBookDetailsLite(data, addedToFavorites) : null;
-
-  if (!bookDetails) return null;
-
-  const { buttonText, buttonTitle, image, title } = bookDetails;
+  const { buttonText, buttonTitle, image, title } = getBookDetailsLite(
+    data,
+    addedToFavorites
+  );
 
   const finishedImage: JSX.Element = (
     <div onClick={e => handleClick(e, bookId)} className={style.imageContainer}>

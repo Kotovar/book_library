@@ -34,16 +34,22 @@ export const getBookDetailsFull = (
 };
 
 export const getBookDetailsLite = (
-  data: VolumeInfo,
+  data: VolumeInfo | undefined,
   addedToFavorites: boolean
 ) => {
-  const buttonText = addedToFavorites ? '♥' : '♡';
-  const buttonTitle = addedToFavorites
-    ? 'Remove from favorites'
-    : 'Add to favorites';
-  const noBookCover = DEFAULT_BOOK_COVER;
-  const image = data.imageLinks?.thumbnail || noBookCover;
-  const title = data.title || 'Untitled';
+  let buttonText: string = '';
+  let buttonTitle: string = '';
+  let image: string = '';
+  let title: string = '';
+
+  if (data) {
+    buttonText = addedToFavorites ? '♥' : '♡';
+    buttonTitle = addedToFavorites
+      ? 'Remove from favorites'
+      : 'Add to favorites';
+    image = data.imageLinks?.thumbnail || DEFAULT_BOOK_COVER;
+    title = data.title || 'Untitled';
+  }
 
   return { buttonText, buttonTitle, image, title };
 };

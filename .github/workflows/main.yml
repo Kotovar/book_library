@@ -23,3 +23,7 @@ jobs:
 
       - name: Run Linter
         run: npm run lint
+      - name: Run Prettier
+        run: npm run format
+      - name: Build project
+        run: npm run build

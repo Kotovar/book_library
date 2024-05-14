@@ -14,8 +14,8 @@ const BookCardLarge = () => {
   const { id = '' } = useParams();
   const { data, error, isLoading } = useGetBookByIdQuery(id);
   const { user, addedToFavorites } = useBookDetails(id);
-  const changeFavorites = useChangeFavorites();
   const [visible, setVisible] = useVisibilityTimer();
+  const changeFavorites = useChangeFavorites();
 
   const handleFavoriteClick = () => {
     if (!user) {

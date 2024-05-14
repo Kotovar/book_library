@@ -13,12 +13,12 @@ interface Props {
 }
 
 export const FetchStatus = ({ isLoading, error, data, children }: Props) => {
-  if (error) {
-    return <p className={style.p}>Error loading book.</p>;
-  }
-
   if (isLoading) {
     return <p className={style.p}>Loading...</p>;
+  }
+
+  if (error) {
+    return <p className={style.p}>Error loading book.</p>;
   }
 
   if (!data) return null;

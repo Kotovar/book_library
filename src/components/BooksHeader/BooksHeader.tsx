@@ -1,23 +1,22 @@
-import { signOut } from 'firebase/auth';
+import { useContext } from 'react';
+
 import { Toaster } from 'react-hot-toast';
 import { Outlet, Link } from 'react-router-dom';
 
 import HeaderLogo from '../../../public/library.svg';
+import { ThemeContext } from '../../app/context/ThemeContext';
 import { useAppSelector } from '../../app/hooks';
-import { auth } from '../../services/firebaseConfig';
 import { selectIsAuthenticated, selectIsLoaded } from '../../utils/selectors';
+import { useLogout } from '../../utils/useLogout';
 
 import styles from './BooksHeader.module.css';
 
-const BooksHeader = () => {
+export const BooksHeader = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const isLoading = useAppSelector(selectIsLoaded);
-
-  function logOutFirebase() {
-    signOut(auth).catch(error => {
-      throw new Error(error);
-    });
-  }
+  const logOut = useLogout();
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const headerClass = theme === 'light' ? styles.light : styles.dark;
 
   let headerContent;
   if (isLoading) {
@@ -27,7 +26,7 @@ const BooksHeader = () => {
       <>
         <Link to='/favorites'>Favorites</Link>
         <Link to='/history'>History</Link>
-        <button onClick={logOutFirebase}>Sign Out</button>
+        <button onClick={logOut}>Sign Out</button>
       </>
     );
   } else {
@@ -41,10 +40,14 @@ const BooksHeader = () => {
 
   return (
     <>
-      <header className={styles.header}>
-        <Link to='/' className={styles.logo}>
-          <img src={HeaderLogo} alt='Header Logo' />
-        </Link>
+      <header className={`${styles.header} ${headerClass}`}>
+        <div className={styles.container}>
+          <Link to='/' className={styles.logo}>
+            <img src={HeaderLogo} alt='Header Logo' />
+          </Link>
+          <button onClick={toggleTheme}>Change theme</button>
+        </div>
+
         <nav className={styles.buttonPanel}>{headerContent}</nav>
       </header>
       <Toaster />
@@ -52,5 +55,3 @@ const BooksHeader = () => {
     </>
   );
 };
-
-export default BooksHeader;

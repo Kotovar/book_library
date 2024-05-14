@@ -1,11 +1,10 @@
 import { useAppSelector } from '../../app/hooks';
 import { HistoryList } from '../../components/HistoryList/HistoryList';
-import type { User } from '../../types/types';
 import { selectUser } from '../../utils/selectors';
 import { useChangeHistory } from '../../utils/useChangeHistory';
 
-const History = () => {
-  const user = useAppSelector(selectUser) as User;
+export const History = () => {
+  const user = useAppSelector(selectUser);
   const changeHistory = useChangeHistory();
   const userHistory = user?.history ?? [];
 
@@ -16,5 +15,3 @@ const History = () => {
     </main>
   );
 };
-
-export default History;

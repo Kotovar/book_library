@@ -1,22 +1,34 @@
 import type { VolumeInfo } from '../types/types';
 
+const DEFAULT_BOOK_COVER = '../../../public/NoBookCover.webp';
+
 export const getBookDetailsFull = (
-  data: VolumeInfo,
+  data: VolumeInfo | undefined,
   addedToFavorites: boolean
 ) => {
-  const image =
-    data.imageLinks?.large ||
-    data.imageLinks?.medium ||
-    data.imageLinks?.small ||
-    data.imageLinks?.thumbnail ||
-    '../../../public/NoBookCover.webp';
+  let image: string = DEFAULT_BOOK_COVER;
+  let authors: string = ' ';
+  let text: string = '';
+  let title: string = 'The book is loading';
+  let description: string = '';
+  let language: string = '';
+  let pages: string = '';
 
-  const authors = data.authors?.join(', ') || 'Author not specified';
-  const text = addedToFavorites ? 'Remove from favorites' : 'Add to favorites';
-  const title = data.title ?? 'No name';
-  const description = data.description ?? 'No description';
-  const language = `Language: ${data.language}`;
-  const pages = `Pages: ${data.pageCount}`;
+  if (data) {
+    image =
+      data.imageLinks?.large ||
+      data.imageLinks?.medium ||
+      data.imageLinks?.small ||
+      data.imageLinks?.thumbnail ||
+      DEFAULT_BOOK_COVER;
+
+    authors = data.authors?.join(', ') || 'Author not specified';
+    text = addedToFavorites ? 'Remove from favorites' : 'Add to favorites';
+    title = data.title ?? 'No name';
+    description = data.description ?? 'No description';
+    language = `Language: ${data.language}`;
+    pages = `Pages: ${data.pageCount}`;
+  }
 
   return { image, authors, text, title, description, language, pages };
 };
@@ -29,7 +41,7 @@ export const getBookDetailsLite = (
   const buttonTitle = addedToFavorites
     ? 'Remove from favorites'
     : 'Add to favorites';
-  const noBookCover = '../../../public/NoBookCover.webp';
+  const noBookCover = DEFAULT_BOOK_COVER;
   const image = data.imageLinks?.thumbnail || noBookCover;
   const title = data.title || 'Untitled';
 
@@ -38,8 +50,7 @@ export const getBookDetailsLite = (
 
 export const getBookDetailsSuggest = (data: VolumeInfo) => {
   const authors = data.authors?.join(', ') || 'Author not specified';
-  const image =
-    data.imageLinks?.smallThumbnail ?? '../../../../public/NoBookCover.webp';
+  const image = data.imageLinks?.smallThumbnail ?? DEFAULT_BOOK_COVER;
   const title = data.title;
 
   return { authors, image, title };

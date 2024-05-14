@@ -5,7 +5,6 @@
   justify-content: space-between;
   align-items: center;
   padding-inline: 4rem;
-  border-bottom: 3px solid black;
 }
 
 .logo {
@@ -17,4 +16,18 @@
 .buttonPanel {
   display: flex;
   gap: 1rem;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.light {
+  background: rgb(255, 255, 255);
+}
+
+.dark {
+  background: rgb(180, 180, 180);
 }

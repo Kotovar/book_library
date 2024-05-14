@@ -11,7 +11,7 @@ import { auth } from '../services/firebaseConfig';
 
 import { getFirebaseData } from './getFirebaseData';
 
-const useFirebaseAuth = () => {
+export const useFirebaseAuth = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -30,5 +30,3 @@ const useFirebaseAuth = () => {
     return subscriber;
   }, [dispatch]);
 };
-
-export default useFirebaseAuth;

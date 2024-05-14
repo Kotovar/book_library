@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
@@ -83,4 +84,8 @@ export const SearchForm = ({ searchParams }: Props) => {
       {error && <p>Error occurred: {error.toString()}</p>}
     </div>
   );
+};
+
+SearchForm.propTypes = {
+  searchParams: PropTypes.string,
 };

@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { BookCardMini } from '../../components/BookCardMini/BookCardMini';
 import { FetchStatus } from '../../components/FetchStatus/FetchStatus';
-import { SearchForm } from '../../components/SearchForms/SearchForm';
+import { SearchForm } from '../../components/SearchForm/SearchForm';
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
 
 import style from './Search.module.css';

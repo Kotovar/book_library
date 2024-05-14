@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { ThemeContext } from './app/context/ThemeContext';
 import { Router } from './routes';
-import useFirebaseAuth from './utils/useFirebaseAuth';
+import { useFirebaseAuth } from './utils/useFirebaseAuth';
 
 import './styles/reset.css';
 import './styles/global.css';

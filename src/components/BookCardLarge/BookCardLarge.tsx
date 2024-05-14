@@ -42,7 +42,11 @@ const BookCardLarge = () => {
           </div>
 
           <ToolTip visible={visible}>
-            <button onClick={handleFavoriteClick} aria-label='Add to favorites'>
+            <button
+              className={style.button}
+              onClick={handleFavoriteClick}
+              aria-label='Add to favorites'
+            >
               {text}
             </button>
           </ToolTip>

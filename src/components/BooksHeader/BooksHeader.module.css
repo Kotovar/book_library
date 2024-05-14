@@ -1,5 +1,4 @@
 .header {
-  width: 100vw;
   min-height: 20vh;
   display: flex;
   justify-content: space-between;
@@ -25,9 +24,37 @@
 }
 
 .light {
-  background: rgb(255, 255, 255);
+  background: var(--header-bg-color);
 }
 
 .dark {
   background: rgb(180, 180, 180);
+}
+
+.button {
+  background-color: transparent;
+  border-radius: 15px;
+  border: 1px solid black;
+
+  &:hover {
+    background-color: var(--hover-color);
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: rgb(44, 34, 34);
+}
+
+.link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: rgb(44, 34, 34);
+  transition: width 0.2s;
+}
+
+.link:hover::after {
+  width: 100%;
 }

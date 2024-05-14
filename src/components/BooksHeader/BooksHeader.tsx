@@ -24,16 +24,26 @@ export const BooksHeader = () => {
   } else if (isAuthenticated) {
     headerContent = (
       <>
-        <Link to='/favorites'>Favorites</Link>
-        <Link to='/history'>History</Link>
-        <button onClick={logOut}>Sign Out</button>
+        <Link className={styles.link} to='/favorites'>
+          Favorites
+        </Link>
+        <Link className={styles.link} to='/history'>
+          History
+        </Link>
+        <button className={styles.button} onClick={logOut}>
+          Sign Out
+        </button>
       </>
     );
   } else {
     headerContent = (
       <>
-        <Link to='/signup'>Registration</Link>
-        <Link to='/signin'>Sign In</Link>
+        <Link className={styles.link} to='/signup'>
+          Registration
+        </Link>
+        <Link className={styles.link} to='/signin'>
+          Sign In
+        </Link>
       </>
     );
   }
@@ -45,7 +55,9 @@ export const BooksHeader = () => {
           <Link to='/' className={styles.logo}>
             <img src={HeaderLogo} alt='Header Logo' />
           </Link>
-          <button onClick={toggleTheme}>Change theme</button>
+          <button className={styles.button} onClick={toggleTheme}>
+            Change theme
+          </button>
         </div>
 
         <nav className={styles.buttonPanel}>{headerContent}</nav>

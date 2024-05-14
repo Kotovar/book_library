@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import { useAuthForm } from '../../utils/useAuthForm';
 
+import style from './SignUp.module.css';
 interface IFormInput {
   email: string;
   password: string;
@@ -27,7 +28,7 @@ export const SignUp = () => {
             required: true,
           })}
         />
-        <input type='submit' value='Register' />
+        <input className={style.button} type='submit' value='Register' />
       </form>
     </main>
   );

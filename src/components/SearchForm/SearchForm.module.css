@@ -54,4 +54,11 @@
 
 .input-button {
   grid-area: input-button;
+  background-color: transparent;
+  border-radius: 15px;
+  border: 1px solid black;
+
+  &:hover {
+    background-color: var(--hover-color);
+  }
 }

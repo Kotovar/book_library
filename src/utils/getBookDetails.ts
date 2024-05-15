@@ -1,12 +1,11 @@
+import DefaultBookCover from '../../public/nobookcover.webp';
 import type { VolumeInfo } from '../types/types';
-
-const DEFAULT_BOOK_COVER = '../../../public/nobookcover.webp';
 
 export const getBookDetailsFull = (
   data: VolumeInfo | undefined,
   addedToFavorites: boolean
 ) => {
-  let image: string = DEFAULT_BOOK_COVER;
+  let image: string = DefaultBookCover;
   let authors: string = ' ';
   let text: string = '';
   let title: string = 'The book is loading';
@@ -20,7 +19,7 @@ export const getBookDetailsFull = (
       data.imageLinks?.medium ||
       data.imageLinks?.small ||
       data.imageLinks?.thumbnail ||
-      DEFAULT_BOOK_COVER;
+      DefaultBookCover;
 
     authors = data.authors?.join(', ') || 'Author not specified';
     text = addedToFavorites ? 'Remove from favorites' : 'Add to favorites';
@@ -47,7 +46,7 @@ export const getBookDetailsLite = (
     buttonTitle = addedToFavorites
       ? 'Remove from favorites'
       : 'Add to favorites';
-    image = data.imageLinks?.thumbnail || DEFAULT_BOOK_COVER;
+    image = data.imageLinks?.thumbnail || DefaultBookCover;
     title = data.title || 'Untitled';
   }
 
@@ -56,7 +55,7 @@ export const getBookDetailsLite = (
 
 export const getBookDetailsSuggest = (data: VolumeInfo) => {
   const authors = data.authors?.join(', ') || 'Author not specified';
-  const image = data.imageLinks?.smallThumbnail ?? DEFAULT_BOOK_COVER;
+  const image = data.imageLinks?.smallThumbnail ?? DefaultBookCover;
   const title = data.title;
 
   return { authors, image, title };

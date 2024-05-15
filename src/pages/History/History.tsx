@@ -1,12 +1,10 @@
-import { useAppSelector } from '../../app/hooks';
 import { HistoryList } from '../../components/HistoryList/HistoryList';
-import { selectUser } from '../../utils/selectors';
 import { useChangeHistory } from '../../utils/useChangeHistory';
+import { useGetHistory } from '../../utils/useGetHistory';
 
 export const History = () => {
-  const user = useAppSelector(selectUser);
   const changeHistory = useChangeHistory();
-  const userHistory = user?.history ?? [];
+  const userHistory = useGetHistory();
 
   return (
     <main>

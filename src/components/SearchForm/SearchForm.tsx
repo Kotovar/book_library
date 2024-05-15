@@ -1,13 +1,15 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
 import { useChangeHistory } from '../../utils/useChangeHistory';
-import { Suggest } from '../Suggest/Suggest';
+import { SuggestDetails } from '../SuggestList/SuggestList';
 
 import style from './SearchForm.module.css';
+
 interface Props {
   searchParams?: string;
 }
@@ -24,8 +26,6 @@ export const SearchForm = ({ searchParams }: Props) => {
       skip: debouncedSearchTerm.trim() === '',
     }
   );
-
-  const numberOfSuggest = 5;
 
   const handleSearch = useCallback(() => {
     if (searchTerm.trim() !== '') {
@@ -44,14 +44,9 @@ export const SearchForm = ({ searchParams }: Props) => {
     [handleSearch]
   );
 
-  const listBooks =
-    searchTerm && data
-      ? data
-          .slice(0, numberOfSuggest)
-          .map(book => (
-            <Suggest key={book.id} id={book.id} volumeInfo={book.volumeInfo} />
-          ))
-      : null;
+  const listBooks = useMemo(() => {
+    return SuggestDetails({ searchTerm, data });
+  }, [searchTerm, data]);
 
   return (
     <div className={style.container}>
@@ -67,8 +62,7 @@ export const SearchForm = ({ searchParams }: Props) => {
             onFocus={() => setVisibleResults(false)}
           />
           <div hidden={visibleResults} className={style['search-result']}>
-            {isLoading && <p>Searching...</p>}
-            {listBooks}
+            {isLoading ? <p>Searching...</p> : listBooks}
           </div>
         </div>
 
@@ -83,4 +77,8 @@ export const SearchForm = ({ searchParams }: Props) => {
       {error && <p>Error occurred: {error.toString()}</p>}
     </div>
   );
+};
+
+SearchForm.propTypes = {
+  searchParams: PropTypes.string,
 };

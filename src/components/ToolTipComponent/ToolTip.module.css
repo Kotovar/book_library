@@ -1,6 +1,8 @@
 .tooltip-container {
   position: relative;
   display: flex;
+  margin-block: 1rem;
+  align-items: center;
 }
 
 .tooltip {
@@ -9,11 +11,12 @@
   padding: 4px 12px;
   margin-left: calc(100%);
   color: red;
-  background-color: white;
-  border: 1px solid black;
+  background-color: rgb(231, 227, 227);
+  border: 1px solid rgb(231, 227, 227);
   border-radius: 12px;
   text-align: center;
   white-space: pre-line;
   font-weight: 700;
   pointer-events: none;
+  left: 1rem;
 }

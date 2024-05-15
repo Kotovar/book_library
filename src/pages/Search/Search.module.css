@@ -1,8 +1,7 @@
 .ul {
   display: grid;
-  grid-template-rows: repeat(2, auto);
-  grid-template-columns: repeat(auto-fit, minmax(130px, 20vw));
+  grid-template-columns: repeat(auto-fit, 240px);
   justify-content: center;
   justify-items: center;
-  row-gap: 2rem;
+  gap: 3rem;
 }

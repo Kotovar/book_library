@@ -1,3 +1,18 @@
-main h1 {
-  text-align: center;
+:root {
+  --header-bg-color: rgb(255, 255, 255);
+  --hover-color: rgb(231, 227, 227);
+}
+
+html {
+  overflow-y: scroll;
+}
+
+main {
+  background: var(--header-bg-color);
+  padding-bottom: 2rem;
+
+  h1 {
+    text-align: center;
+    margin: 0;
+  }
 }

@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { BookCardMini } from '../../components/BookCardMini/BookCardMini';
 import { FetchStatus } from '../../components/FetchStatus/FetchStatus';
-import { SearchForm } from '../../components/SearchForms/SearchForm';
+import { SearchForm } from '../../components/SearchForm/SearchForm';
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
 
 import style from './Search.module.css';
@@ -15,8 +15,9 @@ const SearchComponent = () => {
     skip: searchQuery.trim() === '',
   });
 
-  let listBooks;
-  if (data) {
+  let listBooks: JSX.Element[] | JSX.Element = <p>Nothing found</p>;
+
+  if (data && data.length > 0) {
     listBooks = data.map(book => {
       return (
         <li key={book.id}>
@@ -25,7 +26,6 @@ const SearchComponent = () => {
       );
     });
   }
-
   return (
     <main>
       <h1>Search</h1>

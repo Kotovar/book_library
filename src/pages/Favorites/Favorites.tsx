@@ -1,12 +1,10 @@
-import { useAppSelector } from '../../app/hooks';
 import { BookCardMiniFavorite } from '../../components/BookCardMini/BookCardMiniFavorite';
-import { selectUser } from '../../utils/selectors';
+import { useGetFavorites } from '../../utils/useGetFavorites';
 
 import style from './Favorites.module.css';
 
 const Favorites = () => {
-  const user = useAppSelector(selectUser);
-  const userFavorites = user?.favorites || [];
+  const userFavorites = useGetFavorites();
 
   let listBooks = (
     <p className={style.p}>You don't have any books in your favorites</p>
@@ -26,7 +24,7 @@ const Favorites = () => {
 
   return (
     <main>
-      <h1>Favorites</h1>
+      <h1 className={style.h1}>Favorites</h1>
       {listBooks}
     </main>
   );

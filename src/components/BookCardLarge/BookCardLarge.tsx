@@ -14,8 +14,8 @@ const BookCardLarge = () => {
   const { id = '' } = useParams();
   const { data, error, isLoading } = useGetBookByIdQuery(id);
   const { user, addedToFavorites } = useBookDetails(id);
-  const changeFavorites = useChangeFavorites();
   const [visible, setVisible] = useVisibilityTimer();
+  const changeFavorites = useChangeFavorites();
 
   const handleFavoriteClick = () => {
     if (!user) {
@@ -42,7 +42,11 @@ const BookCardLarge = () => {
           </div>
 
           <ToolTip visible={visible}>
-            <button onClick={handleFavoriteClick} aria-label='Add to favorites'>
+            <button
+              className={style.button}
+              onClick={handleFavoriteClick}
+              aria-label='Add to favorites'
+            >
               {text}
             </button>
           </ToolTip>

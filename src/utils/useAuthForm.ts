@@ -9,11 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../app/hooks';
 import { getError } from '../features/featureAuthorization/AuthorizationSlice';
 import { auth } from '../services/firebaseConfig';
-
-interface Input {
-  email: string;
-  password: string;
-}
+import type { Input } from '../types/types';
 
 export const useAuthForm = (
   action: 'signIn' | 'signUp'

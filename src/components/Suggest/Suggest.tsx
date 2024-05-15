@@ -1,3 +1,5 @@
+import React from 'react';
+
 import type { VolumeInfo } from '../../types/types';
 import { getBookDetailsSuggest } from '../../utils/getBookDetails';
 import { useHandleNavigateClick } from '../../utils/useHandleNavigateClick';
@@ -7,7 +9,7 @@ interface Props {
   volumeInfo: VolumeInfo;
 }
 
-export const Suggest = ({ id, volumeInfo }: Props) => {
+export const Suggest = React.memo(({ id, volumeInfo }: Props) => {
   const handleClick = useHandleNavigateClick();
 
   const { authors, image, title } = getBookDetailsSuggest(volumeInfo);
@@ -22,4 +24,4 @@ export const Suggest = ({ id, volumeInfo }: Props) => {
       </div>
     </li>
   );
-};
+});

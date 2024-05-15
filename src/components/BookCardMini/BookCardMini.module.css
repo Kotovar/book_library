@@ -1,12 +1,12 @@
 .card {
   display: grid;
-  grid-template-rows: 20% 1fr;
+  grid-template-rows: 20% 1fr 15%;
   justify-items: center;
   cursor: pointer;
   border: 2px solid black;
-  border-radius: 2% 99% 4% 96% / 98% 2% 98% 2%;
-  width: 15vw;
-  height: 300px;
+  border-radius: 10px;
+  height: 20rem;
+  aspect-ratio: 3/4;
 
   p {
     max-width: -webkit-fill-available;
@@ -15,15 +15,18 @@
     text-overflow: ellipsis;
     font-weight: bold;
     font-size: 1.3rem;
-    margin: 0;
-    text-align: center;
     padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+
+  &:hover {
+    transform: scale(1.01);
+    background-color: #f3f3f3;
   }
 }
 
 .imageContainer {
-  max-height: 205px;
-  max-width: 128px;
+  height: 205px;
+  width: 128px;
   display: flex;
   align-items: center;
 
@@ -37,5 +40,5 @@
   border: none;
   color: red;
   z-index: 100;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }

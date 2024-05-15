@@ -16,10 +16,10 @@ import { PublicRoute } from './PublicRoute';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const FavoritesPage = lazy(() => import('../pages/Favorites/Favorites'));
+const SearchComponentPage = lazy(() => import('../pages/Search/Search'));
 const BookCardLargePage = lazy(
   () => import('../components/BookCardLarge/BookCardLarge')
 );
-const SearchComponentPage = lazy(() => import('../pages/Search/Search'));
 
 export const Router = () => {
   const isLoading = useAppSelector(selectIsLoaded);

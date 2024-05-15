@@ -24,7 +24,7 @@ const Favorites = () => {
 
   return (
     <main>
-      <h1>Favorites</h1>
+      <h1 className={style.h1}>Favorites</h1>
       {listBooks}
     </main>
   );

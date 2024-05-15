@@ -14,23 +14,26 @@ export const SignIn = () => {
   const onSubmit = useAuthForm('signIn');
 
   return (
-    <main>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Email</label>
-        <input
-          {...register('email', {
-            required: true,
-          })}
-        />
-        <label>Password</label>
-        <input
-          type='password'
-          {...register('password', {
-            required: true,
-          })}
-        />
-        <input className={style.button} type='submit' value='Login' />
-      </form>
+    <main className={style.main}>
+      <div className={style.container}>
+        <h1>Sign In</h1>
+        <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+          <label>Email</label>
+          <input
+            {...register('email', {
+              required: true,
+            })}
+          />
+          <label>Password</label>
+          <input
+            type='password'
+            {...register('password', {
+              required: true,
+            })}
+          />
+          <input className={style.button} type='submit' value='Login' />
+        </form>
+      </div>
     </main>
   );
 };

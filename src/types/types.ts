@@ -43,3 +43,8 @@ export interface BookSearch {
 export interface Route {
   redirectPath?: string;
 }
+
+export interface Input {
+  email: string;
+  password: string;
+}

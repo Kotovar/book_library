@@ -9,14 +9,14 @@ import { useAppSelector } from '../../app/hooks';
 import { selectIsAuthenticated, selectIsLoaded } from '../../utils/selectors';
 import { useLogout } from '../../utils/useLogout';
 
-import styles from './BooksHeader.module.css';
+import style from './BooksHeader.module.css';
 
 export const BooksHeader = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const isLoading = useAppSelector(selectIsLoaded);
   const logOut = useLogout();
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const headerClass = theme === 'light' ? styles.light : styles.dark;
+  const headerClass = theme === 'light' ? style.light : style.dark;
 
   let headerContent;
   if (isLoading) {
@@ -24,13 +24,13 @@ export const BooksHeader = () => {
   } else if (isAuthenticated) {
     headerContent = (
       <>
-        <Link className={styles.link} to='/favorites'>
+        <Link className={style.link} to='/favorites'>
           Favorites
         </Link>
-        <Link className={styles.link} to='/history'>
+        <Link className={style.link} to='/history'>
           History
         </Link>
-        <button className={styles.button} onClick={logOut}>
+        <button className={style.button} onClick={logOut}>
           Sign Out
         </button>
       </>
@@ -38,10 +38,10 @@ export const BooksHeader = () => {
   } else {
     headerContent = (
       <>
-        <Link className={styles.link} to='/signup'>
+        <Link className={style.link} to='/signup'>
           Registration
         </Link>
-        <Link className={styles.link} to='/signin'>
+        <Link className={style.link} to='/signin'>
           Sign In
         </Link>
       </>
@@ -50,17 +50,17 @@ export const BooksHeader = () => {
 
   return (
     <>
-      <header className={`${styles.header} ${headerClass}`}>
-        <div className={styles.container}>
-          <Link to='/' className={styles.logo}>
+      <header className={`${style.header} ${headerClass}`}>
+        <div className={style.container}>
+          <Link to='/' className={style.logo}>
             <img src={HeaderLogo} alt='Header Logo' />
           </Link>
-          <button className={styles.button} onClick={toggleTheme}>
+          <button className={style.button} onClick={toggleTheme}>
             Change theme
           </button>
         </div>
 
-        <nav className={styles.buttonPanel}>{headerContent}</nav>
+        <nav className={style.buttonPanel}>{headerContent}</nav>
       </header>
       <Toaster />
       <Outlet />

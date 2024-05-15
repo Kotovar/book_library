@@ -9,6 +9,7 @@ html {
 
 main {
   background: var(--header-bg-color);
+  padding-bottom: 2rem;
 
   h1 {
     text-align: center;

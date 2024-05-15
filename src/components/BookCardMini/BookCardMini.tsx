@@ -28,14 +28,14 @@ export const BookCardMini = ({ id, volumeInfo }: Props) => {
     changeFavorites(id);
   };
 
-  const { buttonText, buttonTitle, image, title } = getBookDetailsLite(
+  const { buttonText, buttonTitle, imageUrl, title } = getBookDetailsLite(
     volumeInfo,
     addedToFavorites
   );
 
   const finishedImage: JSX.Element = (
     <div onClick={e => handleClick(e, id)} className={style.imageContainer}>
-      <img src={image} alt={`Book = ${title}`} />
+      <img src={imageUrl} alt={`Book = ${title}`} />
     </div>
   );
 

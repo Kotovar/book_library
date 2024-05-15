@@ -25,7 +25,7 @@ const BookCardLarge = () => {
     changeFavorites(id);
   };
 
-  const { image, authors, text, title, description, language, pages } =
+  const { imageUrl, authors, text, title, description, language, pages } =
     getBookDetailsFull(data, addedToFavorites);
 
   return (
@@ -38,7 +38,7 @@ const BookCardLarge = () => {
           <p>{language}</p>
           <p>{pages}</p>
           <div className={style.imageContainer}>
-            <img src={image} alt={`${title} cover`} />
+            <img src={imageUrl} alt={`${title} cover`} />
           </div>
 
           <ToolTip visible={visible}>

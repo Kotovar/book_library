@@ -55,8 +55,8 @@
 - [x] Есть применение [**предохранителя**](https://github.com/Kotovar/book_library/blob/main/src/App.tsx).
 - [x] Есть хотя бы один [**кастомный хук**](https://github.com/Kotovar/book_library/blob/main/src/utils/useFirebaseAuth.ts).
 - [x] **Хотя бы несколько компонентов используют PropTypes**: [BookCardMiniFavorite](https://github.com/Kotovar/book_library/blob/main/src/components/BookCardMini/BookCardMiniFavorite.tsx), [SearchForm](https://github.com/Kotovar/book_library/blob/main/src/components/SearchForm/SearchForm.tsx)
-- [x] Поиск не должен триггерить много запросов к серверу [**debounce**](<(https://github.com/Kotovar/book_library/blob/main/src/components/SearchForm/SearchForm.tsx)>).
-- [x] Есть применение [**lazy + Suspense**](https://github.com/Kotovar/book_library/blob/main/src/routes/index.tsx).
+- [x] Поиск не должен триггерить много запросов к серверу [**debounce**](https://github.com/Kotovar/book_library/blob/main/src/components/SearchForm/SearchForm.tsx).
+- [x] Есть применение [**lazy + Suspense**](https://github.com/Kotovar/book_library/blob/main/src/routes/Router.tsx).
 
 **Redux**
 

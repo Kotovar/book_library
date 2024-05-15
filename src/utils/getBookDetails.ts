@@ -1,6 +1,6 @@
 import type { VolumeInfo } from '../types/types';
 
-const DEFAULT_BOOK_COVER = '../../../public/NoBookCover.webp';
+const DEFAULT_BOOK_COVER = '../../../public/nobookcover.webp';
 
 export const getBookDetailsFull = (
   data: VolumeInfo | undefined,

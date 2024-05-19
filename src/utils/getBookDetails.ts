@@ -1,5 +1,9 @@
 import DefaultBookCover from '../../public/nobookcover.webp';
-import type { VolumeInfo } from '../types/types';
+import type {
+  VolumeInfo,
+  BookDetailsLite,
+  BookDetailsFull,
+} from '../types/types';
 
 const convertToHttps = (url: string) => {
   return url.replace(/^http:/, 'https:');
@@ -8,7 +12,7 @@ const convertToHttps = (url: string) => {
 export const getBookDetailsFull = (
   data: VolumeInfo | undefined,
   addedToFavorites: boolean
-) => {
+): BookDetailsFull => {
   let image: string;
   let imageUrl: string = DefaultBookCover;
   let authors: string = ' ';
@@ -41,7 +45,7 @@ export const getBookDetailsFull = (
 export const getBookDetailsLite = (
   data: VolumeInfo | undefined,
   addedToFavorites: boolean
-) => {
+): BookDetailsLite => {
   let buttonText: string = '';
   let buttonTitle: string = '';
   let image: string;

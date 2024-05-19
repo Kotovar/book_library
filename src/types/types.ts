@@ -48,3 +48,20 @@ export interface Input {
   email: string;
   password: string;
 }
+
+export interface BookDetailsFull {
+  imageUrl: string;
+  authors: string;
+  text: string;
+  title: string;
+  description: string;
+  language: string;
+  pages: string;
+}
+
+export interface BookDetailsLite {
+  buttonText: string;
+  buttonTitle: string;
+  imageUrl: string;
+  title: string;
+}

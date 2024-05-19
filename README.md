@@ -72,4 +72,3 @@
 - [x] Использование [**Firebase**](https://github.com/Kotovar/book_library/blob/main/src/services/firebaseConfig.ts).
 - [x] Настроен [**CI/CD**](https://github.com/Kotovar/book_library/blob/main/.github/workflows/main.yml)
 - [x] Используются [**мемоизированные селекторы**](https://github.com/Kotovar/book_library/blob/main/src/utils/selectors.ts)
-- [x] Низкая связанность клиентского кода с хранилищем. У нас есть кастомный хук, который пишет данные в Firebase или забирает оттуда. В нём функции описаны нейтрально - удалить данные об избранном, записать данные об избранное - нет понимания, куда пишется. [Пример для избранного](https://github.com/Kotovar/book_library/blob/main/src/utils/useChangeFavorites.ts), [пример для истории](https://github.com/Kotovar/book_library/blob/main/src/utils/useChangeHistory.ts)

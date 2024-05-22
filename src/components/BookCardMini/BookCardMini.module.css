@@ -3,7 +3,7 @@
   grid-template-rows: 20% 1fr 15%;
   justify-items: center;
   cursor: pointer;
-  border: 2px solid black;
+  border: 2px solid var(--border-color);
   border-radius: 10px;
   height: 20rem;
   aspect-ratio: 3/4;
@@ -41,4 +41,12 @@
   color: red;
   z-index: 100;
   font-size: 2rem;
+}
+
+.light {
+  background: var(--card-bg-light);
+}
+
+.dark {
+  background: var(--card-bg-dark);
 }

@@ -3,72 +3,65 @@
 [![CI/CD](https://github.com/Kotovar/book_library/actions/workflows/main.yml/badge.svg)](https://github.com/Kotovar/book_library/actions/workflows/main.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/8f1e255d-11ce-49d0-8ede-46850be66f1d/deploy-status)](https://app.netlify.com/sites/google-book-library/deploys)
 
-Приложение для поиска книг с возможностью аутентификации в приложении и добавления книг в избранное.
+An application for searching books with the ability to authenticate in the application and add books to favorites.
 
 [Live preview](https://google-book-library.netlify.app/)
 
-## Как использовать
+## How to use
 
-Чтобы использовать данное приложение, в вашей системе должны быть установлены Node.js и npm. Вы можете клонировать этот репозиторий и выполнить следующие команды:
+To use this application, Node.js and npm must be installed on your system. You can clone this repository and run the following commands:
 
-`npm install` - для установки всех зависимостей
+`npm install` - to install all dependencies
 
-`npm run dev` - для запуска локального сервера с приложением
+`npm run dev` - to run a local server with the application
 
-открыть `http://localhost:[path]` в своём браузере
+open `http://localhost:[path]` in your browser
 
-## Как это работает
+## How it works
 
-Для поиска книг используется [Google Books API](https://developers.google.com/books/docs/overview)
+[Google Books API](https://developers.google.com/books/docs/overview) is used to search for books
 
-Для регистрации и аутентификации используется [Firebase API ](https://firebase.google.com/)
+[Firebase API ](https://firebase.google.com/) is used for registration and authentication
 
-Основа проекта - redux toolkit и RTK Query
+The basis of the project is redux toolkit and RTK Query
 
-Так же использовалось:
+Also used:
 
 - React
 - Typescript
 - Github Actions CI/CD
 - CSS modules
-- Библиотеки:
-  - react-hot-toast
-  - use-debounce
-  - react-hook-form
+- Libraries:
+  - [react-hot-toast](https://react-hot-toast.com/)
+  - [use-debounce](https://www.npmjs.com/package/use-debounce)
+  - [react-hook-form](https://react-hook-form.com/)
 
-## Были выполнены следующие задачи:
-
-### 1 уровень (обязательный - необходимый минимум)
-
-**Общее**
-
-- [x] Реализованы **Требования к функциональности**.
-- [x] Использование **LocalStorage** или **Firebase**.
+## The following tasks were implemented:
 
 **React**
 
-- [x] Использовать **функциональные компоненты с хуками**.
-- [x] Есть **разделение на умные и глупые компоненты**.
-- [x] Есть [**рендеринг списков**](https://github.com/Kotovar/book_library/blob/main/src/pages/HomePage/HomePage.tsx).
-- [x] Реализована [**хотя бы одна форма**](https://github.com/Kotovar/book_library/blob/main/src/pages/SignIn/SignIn.tsx).
-- [x] Есть применение [**Контекст API**](https://github.com/Kotovar/book_library/blob/main/src/app/context/ThemeContext.ts).
-- [x] Есть применение [**предохранителя**](https://github.com/Kotovar/book_library/blob/main/src/App.tsx).
-- [x] Есть хотя бы один [**кастомный хук**](https://github.com/Kotovar/book_library/blob/main/src/utils/useFirebaseAuth.ts).
-- [x] **Хотя бы несколько компонентов используют PropTypes**: [BookCardMiniFavorite](https://github.com/Kotovar/book_library/blob/main/src/components/BookCardMini/BookCardMiniFavorite.tsx), [SearchForm](https://github.com/Kotovar/book_library/blob/main/src/components/SearchForm/SearchForm.tsx)
-- [x] Поиск не должен триггерить много запросов к серверу [**debounce**](https://github.com/Kotovar/book_library/blob/main/src/components/SearchForm/SearchForm.tsx).
-- [x] Есть применение [**lazy + Suspense**](https://github.com/Kotovar/book_library/blob/main/src/routes/Router.tsx).
+- [x] Use **functional components with hooks**.
+- [x] There is a division into **smart and stupid components**.
+- [x] There is [**list rendering**](https://github.com/Kotovar/book_library/blob/main/src/pages/HomePage/HomePage.tsx).
+- [x] [**Forms**](https://github.com/Kotovar/book_library/blob/main/src/pages/SignIn/SignIn.tsx) implemented
+- [x] There is [**Context API**](https://github.com/Kotovar/book_library/blob/main/src/app/context/ThemeContext.ts).
+- [x] There is a [**fuse**](https://github.com/Kotovar/book_library/blob/main/src/App.tsx).
+- [x] There are [**custom hooks**](https://github.com/Kotovar/book_library/blob/main/src/utils/useFirebaseAuth.ts).
+- [x] There is a use of **PropTypes**: [**BookCardMiniFavorite**](https://github.com/Kotovar/book_library/blob/main/src/components/BookCardMini/BookCardMiniFavorite.tsx), [**SearchForm**](https://github.com/Kotovar/book_library/blob/main/src/components/SearchForm/SearchForm.tsx)
+- [x] The search should not trigger many requests to the server [**debounce**](https://github.com/Kotovar/book_library/blob/main/src/components/SearchForm/SearchForm.tsx).
+- [x] There is a use [**lazy + Suspense**](https://github.com/Kotovar/book_library/blob/main/src/routes/Router.tsx).
 
 **Redux**
 
-- [x] Используем **Modern Redux with Redux Toolkit** - [store](https://github.com/Kotovar/book_library/blob/main/src/app/store.ts).
-- [x] Используем [**слайсы**](https://github.com/Kotovar/book_library/blob/main/src/features/featureAuthorization/AuthorizationSlice.ts).
-- [x] Есть хотя бы одна [**кастомная мидлвара**](https://github.com/Kotovar/book_library/blob/main/src/app/middlewares/userAuth.ts).
-- [x] Используется [**RTK Query**](https://github.com/Kotovar/book_library/blob/main/src/features/featureBooksApi/booksApi.ts).
-- [x] Используется [**Transforming Responses**](https://github.com/Kotovar/book_library/blob/main/src/features/featureBooksApi/booksApi.ts).
+- [x] Use **Modern Redux with Redux Toolkit** - [store](https://github.com/Kotovar/book_library/blob/main/src/app/store.ts).
+- [x] Use [**slices**](https://github.com/Kotovar/book_library/blob/main/src/features/featureAuthorization/AuthorizationSlice.ts).
+- [x] There are [**custom middleware**](https://github.com/Kotovar/book_library/blob/main/src/app/middlewares/userAuth.ts).
+- [x] Use [**RTK Query**](https://github.com/Kotovar/book_library/blob/main/src/features/featureBooksApi/booksApi.ts).
+- [x] Use [**Transforming Responses**](https://github.com/Kotovar/book_library/blob/main/src/features/featureBooksApi/booksApi.ts).
 
-### 2 уровень (необязательный)
+## Other
 
-- [x] Использование **TypeScript**.
-- [x] Использование [**Firebase**](https://github.com/Kotovar/book_library/blob/main/src/services/firebaseConfig.ts).
-- [x] Настроен [**CI/CD**](https://github.com/Kotovar/book_library/blob/main/.github/workflows/main.yml)
-- [x] Используются [**мемоизированные селекторы**](https://github.com/Kotovar/book_library/blob/main/src/utils/selectors.ts)
+- [x] Use **TypeScript**.
+- [x] Use [**Firebase**](https://github.com/Kotovar/book_library/blob/main/src/services/firebaseConfig.ts).
+- [x] Configured [**CI/CD**](https://github.com/Kotovar/book_library/blob/main/.github/workflows/main.yml)
+- [x] Use [**memoized selectors**](https://github.com/Kotovar/book_library/blob/main/src/utils/selectors.ts)

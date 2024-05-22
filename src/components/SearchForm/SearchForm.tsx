@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
@@ -20,6 +20,9 @@ export const SearchForm = ({ searchParams }: Props) => {
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const navigate = useNavigate();
   const changeHistory = useChangeHistory();
+  const theme: 'light' | 'dark' = useOutletContext();
+  const inputClass = theme === 'light' ? style.light : style.dark;
+
   const { data, error, isLoading } = useFindBookByNameQuery(
     debouncedSearchTerm,
     {
@@ -53,7 +56,7 @@ export const SearchForm = ({ searchParams }: Props) => {
       <form className={style.form}>
         <div>
           <input
-            className={style.input}
+            className={`${style.input} ${inputClass}`}
             type='text'
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}

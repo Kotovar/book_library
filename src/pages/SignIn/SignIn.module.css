@@ -18,7 +18,6 @@
 
 .main {
   display: flex;
-  height: 80vh;
 
   justify-content: center;
   align-items: center;
@@ -31,4 +30,25 @@
   display: flex;
   gap: 1rem;
   flex-direction: column;
+}
+
+.light {
+  background: var(--header-bg-color-light);
+}
+
+.dark {
+  background: var(--header-bg-color-dark);
+}
+
+.lightInput {
+  background: var(--card-bg-light);
+}
+
+.darkInput {
+  background: var(--card-bg-dark);
+}
+
+.input {
+  border: none;
+  border-radius: 5px;
 }

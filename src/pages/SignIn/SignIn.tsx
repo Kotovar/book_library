@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useOutletContext } from 'react-router-dom';
 
 import { useAuthForm } from '../../utils/useAuthForm';
 
@@ -12,20 +13,25 @@ interface IFormInput {
 export const SignIn = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit = useAuthForm('signIn');
+  const theme: 'light' | 'dark' = useOutletContext();
+  const mainClass = theme === 'light' ? style.light : style.dark;
+  const inputClass = theme === 'light' ? style.darkInput : style.lightInput;
 
   return (
-    <main className={style.main}>
+    <main className={`${style.main} ${mainClass}`}>
       <div className={style.container}>
         <h1>Sign In</h1>
         <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
           <label>Email</label>
           <input
+            className={`${style.input} ${inputClass}`}
             {...register('email', {
               required: true,
             })}
           />
           <label>Password</label>
           <input
+            className={`${style.input} ${inputClass}`}
             type='password'
             {...register('password', {
               required: true,

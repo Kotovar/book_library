@@ -24,11 +24,11 @@
 }
 
 .light {
-  background: var(--header-bg-color);
+  background: var(--header-bg-color-light);
 }
 
 .dark {
-  background: rgb(180, 180, 180);
+  background: var(--header-bg-color-dark);
 }
 
 .button {

@@ -63,7 +63,7 @@ export const BooksHeader = () => {
         <nav className={style.buttonPanel}>{headerContent}</nav>
       </header>
       <Toaster />
-      <Outlet />
+      <Outlet context={theme} />
     </>
   );
 };

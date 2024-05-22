@@ -1,3 +1,5 @@
+import { useOutletContext } from 'react-router-dom';
+
 import type { VolumeInfo } from '../../types/types';
 import { getBookDetailsLite } from '../../utils/getBookDetails';
 import { useBookDetails } from '../../utils/useBookDetails';
@@ -18,6 +20,8 @@ export const BookCardMini = ({ id, volumeInfo }: Props) => {
   const changeFavorites = useChangeFavorites();
   const { user, addedToFavorites } = useBookDetails(id);
   const [visible, setVisible] = useVisibilityTimer();
+  const theme: 'light' | 'dark' = useOutletContext();
+  const cardClass = theme === 'light' ? style.light : style.dark;
 
   const handleFavoriteClick = () => {
     if (!user) {
@@ -40,7 +44,7 @@ export const BookCardMini = ({ id, volumeInfo }: Props) => {
   );
 
   return (
-    <div className={style.card}>
+    <div className={`${style.card} ${cardClass}`}>
       <p>{title}</p>
       {finishedImage}
       <ToolTip visible={visible}>

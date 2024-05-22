@@ -1,0 +1,11 @@
+.p {
+  text-align: center;
+}
+
+.light {
+  background: var(--header-bg-color-light);
+}
+
+.dark {
+  background: var(--header-bg-color-dark);
+}

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
 import { getBookDetailsFull } from '../../utils/getBookDetails';
@@ -16,6 +16,11 @@ const BookCardLarge = () => {
   const { user, addedToFavorites } = useBookDetails(id);
   const [visible, setVisible] = useVisibilityTimer();
   const changeFavorites = useChangeFavorites();
+  const theme: 'light' | 'dark' = useOutletContext();
+
+  const mainClass = theme === 'light' ? style.light : style.dark;
+  const containerClass =
+    theme === 'light' ? style.containerLight : style.containerDark;
 
   const handleFavoriteClick = () => {
     if (!user) {
@@ -30,16 +35,21 @@ const BookCardLarge = () => {
 
   return (
     <FetchStatus isLoading={isLoading} error={error} data={data}>
-      <main>
-        <div className={style.container}>
-          <h1>{title}</h1>
-          <p>{description}</p>
-          <p>{authors}</p>
-          <p>{language}</p>
-          <p>{pages}</p>
-          <div className={style.imageContainer}>
-            <img src={imageUrl} alt={`${title} cover`} />
+      <main className={`${mainClass}`}>
+        <div className={`${style.container} ${containerClass}`}>
+          <div className={style.main}>
+            <div className={style.imageContainer}>
+              <img src={imageUrl} alt={`${title} cover`} />
+            </div>
+            <div className={style.descriptionContainer}>
+              <h1>{title}</h1>
+              <p>{authors}</p>
+              <p>{language}</p>
+              <p>{pages}</p>
+            </div>
           </div>
+
+          <p>{description}</p>
 
           <ToolTip visible={visible}>
             <button

@@ -6,8 +6,9 @@
   margin-inline: 2rem;
 
   padding-inline: 2rem;
-  border: 2px solid black;
+  border: 2px solid var(--border-color);
   border-radius: 15px;
+  row-gap: 1rem;
 }
 
 .imageContainer {
@@ -29,4 +30,27 @@
   &:hover {
     background-color: var(--hover-color);
   }
+}
+
+.main {
+  display: flex;
+  width: 80%;
+  column-gap: 1rem;
+  padding-block: 1rem;
+}
+
+.light {
+  background: var(--header-bg-color-light);
+}
+
+.dark {
+  background: var(--header-bg-color-dark);
+}
+
+.containerLight {
+  background: var(--card-bg-dark);
+}
+
+.containerDark {
+  background: var(--card-bg-light);
 }

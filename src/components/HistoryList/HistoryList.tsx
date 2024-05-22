@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 
 import style from './HistoryList.module.css';
 
@@ -8,6 +8,9 @@ interface Props {
 }
 
 export const HistoryList = ({ history, onDelete }: Props) => {
+  const theme: 'light' | 'dark' = useOutletContext();
+  const containerClass = theme === 'light' ? style.light : style.dark;
+
   if (history.length === 0) {
     return <p className={style.p}>Search history is empty</p>;
   }
@@ -15,7 +18,7 @@ export const HistoryList = ({ history, onDelete }: Props) => {
   return (
     <ul className={style.ul}>
       {history.map(query => (
-        <div key={query} className={style.container}>
+        <div key={query} className={`${style.container} ${containerClass}`}>
           <li className={style.li}>
             <Link to={`/search?${query}`}>{query}</Link>
           </li>

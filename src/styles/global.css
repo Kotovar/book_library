@@ -1,6 +1,10 @@
 :root {
-  --header-bg-color: rgb(255, 255, 255);
+  --header-bg-color-light: rgb(255, 255, 255);
+  --header-bg-color-dark: rgb(180, 180, 180);
+  --card-bg-light: rgb(224, 224, 224);
+  --card-bg-dark: rgb(233, 233, 233);
   --hover-color: rgb(231, 227, 227);
+  --border-color: rgb(189, 189, 189);
 }
 
 html {
@@ -8,8 +12,8 @@ html {
 }
 
 main {
-  background: var(--header-bg-color);
   padding-bottom: 2rem;
+  min-height: 80vh;
 
   h1 {
     text-align: center;

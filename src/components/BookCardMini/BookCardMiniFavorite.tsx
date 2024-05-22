@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useOutletContext } from 'react-router-dom';
 
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
 import { getBookDetailsLite } from '../../utils/getBookDetails';
@@ -18,6 +19,8 @@ export const BookCardMiniFavorite = ({ bookId }: Props) => {
   const { addedToFavorites } = useBookDetails(bookId);
   const handleClick = useHandleNavigateClick();
   const changeFavorites = useChangeFavorites();
+  const theme: 'light' | 'dark' = useOutletContext();
+  const cardClass = theme === 'light' ? style.light : style.dark;
 
   const handleFavoriteClick = async () => {
     await changeFavorites(bookId);
@@ -36,7 +39,7 @@ export const BookCardMiniFavorite = ({ bookId }: Props) => {
 
   return (
     <FetchStatus isLoading={isLoading} error={error} data={data}>
-      <div className={style.card}>
+      <div className={`${style.card} ${cardClass}`}>
         <p>{title}</p>
         {finishedImage}
         <button

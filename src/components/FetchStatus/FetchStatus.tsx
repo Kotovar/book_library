@@ -9,12 +9,25 @@ interface Props {
   isLoading: boolean;
   error: FetchBaseQueryError | SerializedError | undefined;
   data: VolumeInfo | BooksArrayResult | undefined;
+  theme?: 'light' | 'dark';
   children: JSX.Element;
 }
 
-export const FetchStatus = ({ isLoading, error, data, children }: Props) => {
+export const FetchStatus = ({
+  isLoading,
+  error,
+  data,
+  theme,
+  children,
+}: Props) => {
+  const mainClass = theme === 'light' ? style.light : style.dark;
+
   if (isLoading) {
-    return <p className={style.p}>Loading...</p>;
+    return (
+      <main className={mainClass}>
+        <p className={style.p}>Loading...</p>
+      </main>
+    );
   }
 
   if (error) {

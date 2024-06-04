@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import { useOutletContext } from 'react-router-dom';
 
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
-import { getBookDetailsLite } from '../../utils/getBookDetails';
-import { useBookDetails } from '../../utils/useBookDetails';
-import { useChangeFavorites } from '../../utils/useChangeFavorites';
-import { useHandleNavigateClick } from '../../utils/useHandleNavigateClick';
+import {
+  useBookDetails,
+  useChangeFavorites,
+  useHandleNavigateClick,
+  getBookDetailsLite,
+} from '../../utils';
 import { FetchStatus } from '../FetchStatus/FetchStatus';
 
 import style from './BookCardMini.module.css';

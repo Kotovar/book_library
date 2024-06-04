@@ -1,10 +1,12 @@
 import { useOutletContext, useParams } from 'react-router-dom';
 
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
-import { getBookDetailsFull } from '../../utils/getBookDetails';
-import { useBookDetails } from '../../utils/useBookDetails';
-import { useChangeFavorites } from '../../utils/useChangeFavorites';
-import { useVisibilityTimer } from '../../utils/useVisibilityTimer';
+import {
+  getBookDetailsFull,
+  useBookDetails,
+  useChangeFavorites,
+  useVisibilityTimer,
+} from '../../utils';
 import { FetchStatus } from '../FetchStatus/FetchStatus';
 import { ToolTip } from '../ToolTipComponent/ToolTip';
 
@@ -34,8 +36,8 @@ const BookCardLarge = () => {
     getBookDetailsFull(data, addedToFavorites);
 
   return (
-    <FetchStatus isLoading={isLoading} error={error} data={data}>
-      <main className={`${mainClass}`}>
+    <FetchStatus isLoading={isLoading} error={error} data={data} theme={theme}>
+      <main className={mainClass}>
         <div className={`${style.container} ${containerClass}`}>
           <div className={style.main}>
             <div className={style.imageContainer}>

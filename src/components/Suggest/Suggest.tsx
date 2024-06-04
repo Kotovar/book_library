@@ -1,8 +1,7 @@
 import React from 'react';
 
 import type { VolumeInfo } from '../../types/types';
-import { getBookDetailsSuggest } from '../../utils/getBookDetails';
-import { useHandleNavigateClick } from '../../utils/useHandleNavigateClick';
+import { useHandleNavigateClick, getBookDetailsSuggest } from '../../utils';
 
 interface Props {
   id: string;

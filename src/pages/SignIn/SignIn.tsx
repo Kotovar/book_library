@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useOutletContext } from 'react-router-dom';
 
-import { useAuthForm } from '../../utils/useAuthForm';
+import { useAuthForm } from '../../utils';
 
 import style from './SignIn.module.css';
 

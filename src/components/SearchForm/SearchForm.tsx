@@ -5,7 +5,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
 import { useFindBookByNameQuery } from '../../features/featureBooksApi/booksApi';
-import { useChangeHistory } from '../../utils/useChangeHistory';
+import { useChangeHistory } from '../../utils';
 import { SuggestDetails } from '../SuggestList/SuggestList';
 
 import style from './SearchForm.module.css';

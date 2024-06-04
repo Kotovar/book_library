@@ -1,11 +1,13 @@
 import { useOutletContext } from 'react-router-dom';
 
 import type { VolumeInfo } from '../../types/types';
-import { getBookDetailsLite } from '../../utils/getBookDetails';
-import { useBookDetails } from '../../utils/useBookDetails';
-import { useChangeFavorites } from '../../utils/useChangeFavorites';
-import { useHandleNavigateClick } from '../../utils/useHandleNavigateClick';
-import { useVisibilityTimer } from '../../utils/useVisibilityTimer';
+import {
+  useBookDetails,
+  useChangeFavorites,
+  useHandleNavigateClick,
+  useVisibilityTimer,
+  getBookDetailsLite,
+} from '../../utils';
 import { ToolTip } from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardMini.module.css';

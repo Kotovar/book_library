@@ -10,8 +10,8 @@
   width: 180px;
   padding: 4px 12px;
   margin-left: calc(100%);
-  color: red;
-  background-color: rgb(231, 227, 227);
+  color: var(--alarm-color);
+  background-color: var(--header-bg-color-light);
   border: 1px solid rgb(231, 227, 227);
   border-radius: 12px;
   text-align: center;

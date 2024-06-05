@@ -4,7 +4,6 @@ import {
 } from 'firebase/auth';
 import type { Auth, UserCredential } from 'firebase/auth';
 import type { SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../app/hooks';
 import { getError } from '../features/featureAuthorization/AuthorizationSlice';
@@ -15,7 +14,6 @@ export const useAuthForm = (
   action: 'signIn' | 'signUp'
 ): SubmitHandler<Input> => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const authFunction: (
     auth: Auth,
@@ -29,7 +27,6 @@ export const useAuthForm = (
   return async ({ email, password }) => {
     try {
       await authFunction(auth, email, password);
-      navigate('/');
     } catch (error) {
       if (
         typeof error === 'object' &&

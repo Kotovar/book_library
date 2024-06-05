@@ -1,8 +1,7 @@
 import { useOutletContext } from 'react-router-dom';
 
 import { HistoryList } from '../../components/HistoryList/HistoryList';
-import { useChangeHistory } from '../../utils/useChangeHistory';
-import { useGetHistory } from '../../utils/useGetHistory';
+import { useChangeHistory, useGetHistory } from '../../utils';
 
 import style from './History.module.css';
 
@@ -13,7 +12,7 @@ export const History = () => {
   const mainClass = theme === 'light' ? style.light : style.dark;
 
   return (
-    <main className={`${mainClass}`}>
+    <main className={mainClass}>
       <h1>History</h1>
       <HistoryList history={userHistory} onDelete={changeHistory} />
     </main>

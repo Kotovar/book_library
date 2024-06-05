@@ -6,8 +6,8 @@ import { Outlet, Link } from 'react-router-dom';
 import HeaderLogo from '../../../public/library.svg';
 import { ThemeContext } from '../../app/context/ThemeContext';
 import { useAppSelector } from '../../app/hooks';
+import { useLogout } from '../../utils';
 import { selectIsAuthenticated, selectIsLoaded } from '../../utils/selectors';
-import { useLogout } from '../../utils/useLogout';
 
 import style from './BooksHeader.module.css';
 

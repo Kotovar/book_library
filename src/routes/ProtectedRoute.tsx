@@ -4,7 +4,7 @@ import { useAppSelector } from '../app/hooks';
 import type { Route } from '../types/types';
 import { selectUser } from '../utils/selectors';
 
-export const ProtectedRoute = ({ redirectPath = '/' }: Route) => {
+export const ProtectedRoute = ({ redirectPath = '/signin' }: Route) => {
   const user = useAppSelector(selectUser);
   const theme: 'light' | 'dark' = useOutletContext();
 

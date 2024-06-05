@@ -1,7 +1,7 @@
 import { useOutletContext } from 'react-router-dom';
 
 import { BookCardMiniFavorite } from '../../components/BookCardMini/BookCardMiniFavorite';
-import { useGetFavorites } from '../../utils/useGetFavorites';
+import { useGetFavorites } from '../../utils';
 
 import style from './Favorites.module.css';
 
@@ -27,7 +27,7 @@ const Favorites = () => {
   }
 
   return (
-    <main className={`${mainClass}`}>
+    <main className={mainClass}>
       <h1 className={style.h1}>Favorites</h1>
       {listBooks}
     </main>

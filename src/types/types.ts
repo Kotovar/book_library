@@ -65,3 +65,9 @@ export interface BookDetailsLite {
   imageUrl: string;
   title: string;
 }
+
+export type Theme = 'dark' | 'light';
+export type ThemeInstall = [
+  Theme,
+  React.Dispatch<React.SetStateAction<string>>,
+];

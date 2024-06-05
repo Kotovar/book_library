@@ -18,7 +18,7 @@ const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const FavoritesPage = lazy(() => import('../pages/Favorites/Favorites'));
 const SearchComponentPage = lazy(() => import('../pages/Search/Search'));
 const BookCardLargePage = lazy(
-  () => import('../components/BookCardLarge/BookCardLarge')
+  () => import('../pages/BookCardLarge/BookCardLarge')
 );
 
 export const Router = () => {
@@ -45,22 +45,22 @@ export const Router = () => {
           }
         />
         <Route element={<PublicRoute />}>
-          <Route path='/signin' element={<SignIn />} />
-          <Route path='/signup' element={<SignUp />} />
+          <Route path='signin' element={<SignIn />} />
+          <Route path='signup' element={<SignUp />} />
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route
-            path='/favorites'
+            path='favorites'
             element={
               <Suspense fallback={<Loader />}>
                 <FavoritesPage />
               </Suspense>
             }
           />
-          <Route path='/history' element={<History />} />
+          <Route path='history' element={<History />} />
         </Route>
         <Route
-          path='/book/:id'
+          path='book/:id'
           element={
             <Suspense fallback={<Loader />}>
               <BookCardLargePage />
@@ -68,7 +68,7 @@ export const Router = () => {
           }
         />
         <Route
-          path='/search'
+          path='search'
           element={
             <Suspense fallback={<Loader />}>
               <SearchComponentPage />

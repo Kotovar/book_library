@@ -1,3 +1,22 @@
 .h1 {
   text-align: center;
 }
+
+.light {
+  background: var(--header-bg-color-light);
+}
+
+.dark {
+  background: var(--header-bg-color-dark);
+}
+
+.main {
+  height: 100vh;
+}
+
+.link {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-size: 3rem;
+}

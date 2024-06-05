@@ -1,5 +1,7 @@
 import { useOutletContext, useParams } from 'react-router-dom';
 
+import { FetchStatus } from '../../components/FetchStatus/FetchStatus';
+import { ToolTip } from '../../components/ToolTipComponent/ToolTip';
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
 import {
   getBookDetailsFull,
@@ -7,8 +9,6 @@ import {
   useChangeFavorites,
   useVisibilityTimer,
 } from '../../utils';
-import { FetchStatus } from '../FetchStatus/FetchStatus';
-import { ToolTip } from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardLarge.module.css';
 

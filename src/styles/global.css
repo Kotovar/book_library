@@ -9,6 +9,7 @@
 
 html {
   overflow-y: scroll;
+  font-family: 'Roboto Slab';
 }
 
 main {
@@ -19,4 +20,12 @@ main {
     text-align: center;
     margin: 0;
   }
+}
+
+@font-face {
+  font-family: 'Roboto Slab';
+  src: url('/fonts/RobotoSlab-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }

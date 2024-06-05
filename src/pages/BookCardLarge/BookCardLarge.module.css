@@ -13,7 +13,7 @@
 
 .imageContainer {
   height: 40vh;
-  width: auto;
+  aspect-ratio: 0.624 / 1;
 
   img {
     object-fit: contain;

@@ -1,6 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { removeHistory } from '../features/featureAuthorization/AuthorizationSlice';
-import { addHistory } from '../features/featureAuthorization/AuthorizationSlice';
+import {
+  removeHistory,
+  addHistory,
+} from '../features/featureAuthorization/AuthorizationSlice';
 
 import { writeUserData, removeUserHistory } from './getFirebaseData';
 import { selectUser } from './selectors';

@@ -1,0 +1,31 @@
+.suggest {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  cursor: pointer;
+  max-height: 3rem;
+
+  img {
+    max-height: 2rem;
+    width: 1rem;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  div {
+    max-height: 3rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    p {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}

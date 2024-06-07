@@ -3,19 +3,12 @@ import { useState, useEffect } from 'react';
 import type { Theme, ThemeInstall } from '../types/types';
 
 export const useLocalStorage = (key: string, defaultValue: Theme) => {
-  const [value, setValue] = useState(() => {
-    let currentValue: Theme;
+  const readValue = () => {
+    const storedValue = localStorage.getItem(key);
+    return storedValue ? JSON.parse(storedValue) : defaultValue;
+  };
 
-    try {
-      currentValue = JSON.parse(
-        localStorage.getItem(key) || String(defaultValue)
-      );
-    } catch (error) {
-      currentValue = defaultValue;
-    }
-
-    return currentValue;
-  });
+  const [value, setValue] = useState(readValue);
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));

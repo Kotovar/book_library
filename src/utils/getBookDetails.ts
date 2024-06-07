@@ -5,9 +5,7 @@ import type {
   BookDetailsFull,
 } from '../types/types';
 
-const convertToHttps = (url: string) => {
-  return url.replace(/^http:/, 'https:');
-};
+const convertToHttps = (url: string) => url.replace(/^http:/, 'https:');
 
 export const getBookDetailsFull = (
   data: VolumeInfo | undefined,
@@ -24,14 +22,14 @@ export const getBookDetailsFull = (
 
   if (data) {
     image =
-      data.imageLinks?.large ||
-      data.imageLinks?.medium ||
-      data.imageLinks?.small ||
-      data.imageLinks?.thumbnail ||
+      data.imageLinks?.large ??
+      data.imageLinks?.medium ??
+      data.imageLinks?.small ??
+      data.imageLinks?.thumbnail ??
       DefaultBookCover;
 
     imageUrl = convertToHttps(image);
-    authors = data.authors?.join(', ') || 'Author not specified';
+    authors = data.authors?.join(', ') ?? 'Author not specified';
     text = addedToFavorites ? 'Remove from favorites' : 'Add to favorites';
     title = data.title ?? 'No name';
     description = data.description ?? 'No description';
@@ -57,7 +55,7 @@ export const getBookDetailsLite = (
     buttonTitle = addedToFavorites
       ? 'Remove from favorites'
       : 'Add to favorites';
-    image = data.imageLinks?.thumbnail || DefaultBookCover;
+    image = data.imageLinks?.thumbnail ?? DefaultBookCover;
     imageUrl = convertToHttps(image);
     title = data.title || 'Untitled';
   }
@@ -66,7 +64,7 @@ export const getBookDetailsLite = (
 };
 
 export const getBookDetailsSuggest = (data: VolumeInfo) => {
-  const authors = data.authors?.join(', ') || 'Author not specified';
+  const authors = data.authors?.join(', ') ?? 'Author not specified';
   const image = data.imageLinks?.smallThumbnail ?? DefaultBookCover;
   const title = data.title;
 

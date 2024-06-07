@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
+import type { SerializedError } from '@reduxjs/toolkit';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import PropTypes from 'prop-types';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
@@ -51,6 +53,14 @@ export const SearchForm = ({ searchParams }: Props) => {
     return SuggestDetails({ searchTerm, data });
   }, [searchTerm, data]);
 
+  const getErrorMessage = (error: FetchBaseQueryError | SerializedError) => {
+    if ('status' in error) {
+      return 'error' in error ? error.error : JSON.stringify(error.data);
+    } else {
+      return error?.message ?? 'Unknown error';
+    }
+  };
+
   return (
     <div className={style.container}>
       <form className={style.form}>
@@ -77,7 +87,7 @@ export const SearchForm = ({ searchParams }: Props) => {
         />
       </form>
 
-      {error && <p>Error occurred: {error.toString()}</p>}
+      {error && <p>{getErrorMessage(error)}</p>}
     </div>
   );
 };

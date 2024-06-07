@@ -12,16 +12,21 @@ export const SuggestDetails = ({
   data,
   numberOfSuggest = 5,
 }: Props) => {
-  const listBooks =
-    !searchTerm || !data ? null : data.length > 0 ? (
+  const getResults = (data: BooksArrayResult) => {
+    return data.length < 1 ? (
+      <p>Nothing found</p>
+    ) : (
       data
         .slice(0, numberOfSuggest)
         .map(book => (
           <Suggest key={book.id} id={book.id} volumeInfo={book.volumeInfo} />
         ))
-    ) : (
-      <p>Nothing found</p>
     );
+  };
+
+  const shouldDisplayBooks = !searchTerm || !data;
+
+  const listBooks = shouldDisplayBooks ? null : getResults(data);
 
   return listBooks;
 };

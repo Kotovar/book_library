@@ -34,9 +34,12 @@ export const BookCardMiniFavorite = ({ bookId }: Props) => {
   );
 
   const finishedImage: JSX.Element = (
-    <div onClick={e => handleClick(e, bookId)} className={style.imageContainer}>
+    <button
+      onClick={e => handleClick(e, bookId)}
+      className={style.imageContainer}
+    >
       <img src={imageUrl} alt={`Book = ${title}`} />
-    </div>
+    </button>
   );
 
   return (

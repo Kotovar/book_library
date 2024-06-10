@@ -23,6 +23,7 @@ export const HistoryList = ({ history, onDelete }: Props) => {
             <Link to={`/search?${query}`}>{query}</Link>
           </li>
           <button
+            className={style.button}
             title='Delete this search history'
             onClick={() => onDelete(false, query)}
           >

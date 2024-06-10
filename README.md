@@ -47,7 +47,6 @@ Also used:
 - [x] There is [**Context API**](https://github.com/Kotovar/book_library/blob/main/src/app/context/ThemeContext.ts).
 - [x] There is a [**fuse**](https://github.com/Kotovar/book_library/blob/main/src/App.tsx).
 - [x] There are [**custom hooks**](https://github.com/Kotovar/book_library/blob/main/src/utils/useFirebaseAuth.ts).
-- [x] There is a use of **PropTypes**: [**BookCardMiniFavorite**](https://github.com/Kotovar/book_library/blob/main/src/components/BookCardMini/BookCardMiniFavorite.tsx), [**SearchForm**](https://github.com/Kotovar/book_library/blob/main/src/components/SearchForm/SearchForm.tsx)
 - [x] The search should not trigger many requests to the server [**debounce**](https://github.com/Kotovar/book_library/blob/main/src/components/SearchForm/SearchForm.tsx).
 - [x] There is a use [**lazy + Suspense**](https://github.com/Kotovar/book_library/blob/main/src/routes/Router.tsx).
 
@@ -55,7 +54,7 @@ Also used:
 
 - [x] Use **Modern Redux with Redux Toolkit** - [store](https://github.com/Kotovar/book_library/blob/main/src/app/store.ts).
 - [x] Use [**slices**](https://github.com/Kotovar/book_library/blob/main/src/features/featureAuthorization/AuthorizationSlice.ts).
-- [x] There are [**custom middleware**](https://github.com/Kotovar/book_library/blob/main/src/app/middlewares/userAuth.ts).
+- [x] There are [**custom middleware**](https://github.com/Kotovar/book_library/blob/main/src/app/middlewares/userErrors.ts).
 - [x] Use [**RTK Query**](https://github.com/Kotovar/book_library/blob/main/src/features/featureBooksApi/booksApi.ts).
 - [x] Use [**Transforming Responses**](https://github.com/Kotovar/book_library/blob/main/src/features/featureBooksApi/booksApi.ts).
 

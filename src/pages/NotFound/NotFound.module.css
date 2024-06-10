@@ -12,11 +12,14 @@
 
 .main {
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .link {
   text-decoration: none;
   display: block;
   text-align: center;
-  font-size: 3rem;
+  font-size: 2rem;
 }

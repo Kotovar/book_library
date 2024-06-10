@@ -5,10 +5,8 @@ import {
   useBookDetails,
   useChangeFavorites,
   useHandleNavigateClick,
-  useVisibilityTimer,
   getBookDetailsLite,
 } from '../../utils';
-import { ToolTip } from '../ToolTipComponent/ToolTip';
 
 import style from './BookCardMini.module.css';
 
@@ -20,17 +18,11 @@ interface Props {
 export const BookCardMini = ({ id, volumeInfo }: Props) => {
   const handleClick = useHandleNavigateClick();
   const changeFavorites = useChangeFavorites();
-  const { user, addedToFavorites } = useBookDetails(id);
-  const [visible, setVisible] = useVisibilityTimer();
+  const { addedToFavorites } = useBookDetails(id);
   const theme: 'light' | 'dark' = useOutletContext();
   const cardClass = theme === 'light' ? style.light : style.dark;
 
   const handleFavoriteClick = () => {
-    if (!user) {
-      setVisible(false);
-      return;
-    }
-
     changeFavorites(id);
   };
 
@@ -49,15 +41,13 @@ export const BookCardMini = ({ id, volumeInfo }: Props) => {
     <div className={`${style.card} ${cardClass}`}>
       <p>{title}</p>
       {finishedImage}
-      <ToolTip visible={visible}>
-        <button
-          title={buttonTitle}
-          className={style.button}
-          onClick={handleFavoriteClick}
-        >
-          {buttonText}
-        </button>
-      </ToolTip>
+      <button
+        title={buttonTitle}
+        className={style.button}
+        onClick={handleFavoriteClick}
+      >
+        {buttonText}
+      </button>
     </div>
   );
 };

@@ -20,7 +20,7 @@
 
   &:hover {
     transform: scale(1.01);
-    background-color: #f3f3f3;
+    background-color: rgb(243, 243, 243);
   }
 }
 
@@ -29,7 +29,6 @@
   width: 128px;
   display: flex;
   align-items: center;
-  background-color: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
@@ -42,7 +41,7 @@
 .button {
   background-color: transparent;
   border: none;
-  color: red;
+  color: var(--favorite-color);
   z-index: 100;
   font-size: 2rem;
 }

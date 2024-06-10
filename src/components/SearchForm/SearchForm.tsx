@@ -80,7 +80,8 @@ export const SearchForm = ({ searchParams }: Props) => {
         </div>
 
         <input
-          className={style['input-button']}
+          // className={style['input-button']}
+          className={`${style.inputButton} ${inputClass}`}
           type='button'
           value='Search'
           onClick={handleSearch}

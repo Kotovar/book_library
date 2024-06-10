@@ -14,7 +14,7 @@
 
 .buttonPanel {
   display: flex;
-  gap: 1rem;
+  column-gap: 1rem;
 }
 
 .container {
@@ -33,7 +33,7 @@
 
 .button {
   background-color: transparent;
-  border-radius: 15px;
+  border-radius: var(--border-radius);
   border: 1px solid black;
 
   &:hover {
@@ -43,18 +43,33 @@
 
 .link {
   text-decoration: none;
-  color: rgb(44, 34, 34);
+  color: var(--link-color);
 }
 
 .link::after {
   content: '';
   display: block;
   width: 0;
-  height: 2px;
-  background: rgb(44, 34, 34);
-  transition: width 0.2s;
+  height: 3px;
+  background: var(--link-color);
+  transition: width var(--transition-delay);
 }
 
 .link:hover::after {
   width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding-inline: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .buttonPanel {
+    flex-direction: column;
+    align-items: flex-end;
+    row-gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
 }

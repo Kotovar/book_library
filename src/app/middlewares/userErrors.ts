@@ -11,6 +11,7 @@ const errorMessages: Record<string, string> = {
   'auth/too-many-requests': 'Too many attempts - try again later',
   'auth/email-already-in-use': 'This email is already taken',
   'auth/weak-password': 'Try a more complex password',
+  'User is not authorized': 'You need to sign in!',
   default: 'Unknown error',
 };
 

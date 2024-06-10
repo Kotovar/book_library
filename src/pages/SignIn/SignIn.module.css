@@ -1,7 +1,6 @@
 .button {
-  grid-area: input-button;
   background-color: transparent;
-  border-radius: 15px;
+  border-radius: var(--border-radius);
   border: 1px solid black;
 
   &:hover {
@@ -18,17 +17,16 @@
 
 .main {
   display: flex;
-
   justify-content: center;
   align-items: center;
 }
 
 .container {
-  border: 3px solid black;
-  border-radius: 15px;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: var(--border-radius);
   padding: 1rem;
   display: flex;
-  gap: 1rem;
+  row-gap: 1rem;
   flex-direction: column;
 }
 
@@ -50,5 +48,42 @@
 
 .input {
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius-small);
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 50vw;
+    height: 70vh;
+    justify-content: center;
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  .label {
+    width: 100%;
+  }
+
+  .button {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 80vw;
+  }
+
+  .button {
+    width: 100%;
+  }
 }

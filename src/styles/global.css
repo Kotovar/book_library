@@ -6,11 +6,18 @@
   --hover-color: rgb(231, 227, 227);
   --border-color: rgb(189, 189, 189);
   --alarm-color: rgb(247, 76, 76);
+  --favorite-color: rgb(247, 0, 0);
+  --link-color: rgb(44, 34, 34);
+
+  --border-radius: 15px;
+  --border-radius-small: 5px;
+
+  --transition-delay: 0.2s;
 }
 
 html {
   overflow-y: scroll;
-  font-family: 'Roboto Slab';
+  font-family: 'Roboto Slab', sans-serif;
 }
 
 main {

@@ -32,12 +32,7 @@ const SearchComponent = () => {
     <main className={`${mainClass}`}>
       <h1>Search</h1>
       <SearchForm searchParams={searchQuery} />
-      <FetchStatus
-        isLoading={isLoading}
-        error={error}
-        data={data}
-        theme={theme}
-      >
+      <FetchStatus isLoading={isLoading} error={error} data={data}>
         <ul className={style.ul}>{listBooks}</ul>
       </FetchStatus>
     </main>

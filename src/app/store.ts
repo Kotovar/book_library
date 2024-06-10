@@ -4,7 +4,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import AuthorizationReducer from '../features/featureAuthorization/AuthorizationSlice';
 import { bookApi } from '../features/featureBooksApi/booksApi';
 
-import { listenerMiddleware } from './middlewares/userAuth';
+import { listenerMiddleware } from './middlewares/userErrors';
 
 export const store = configureStore({
   reducer: {

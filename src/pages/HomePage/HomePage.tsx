@@ -27,12 +27,7 @@ const HomePage = () => {
     <main className={`${mainClass}`}>
       <h1>Home page</h1>
       <SearchForm />
-      <FetchStatus
-        isLoading={isLoading}
-        error={error}
-        data={data}
-        theme={theme}
-      >
+      <FetchStatus isLoading={isLoading} error={error} data={data}>
         <ul className={style.ul}>{listBooks}</ul>
       </FetchStatus>
     </main>

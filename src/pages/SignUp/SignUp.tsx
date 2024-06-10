@@ -21,23 +21,26 @@ export const SignUp = () => {
     <main className={`${style.main} ${mainClass}`}>
       <div className={style.container}>
         <h1>Registration</h1>
-
         <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-          <label>Email</label>
-          <input
-            className={`${style.input} ${inputClass}`}
-            {...register('email', {
-              required: true,
-            })}
-          />
-          <label>Password</label>
-          <input
-            className={`${style.input} ${inputClass}`}
-            type='password'
-            {...register('password', {
-              required: true,
-            })}
-          />
+          <label className={style.label}>
+            Email{' '}
+            <input
+              className={`${style.input} ${inputClass}`}
+              {...register('email', {
+                required: true,
+              })}
+            />
+          </label>
+          <label className={style.label}>
+            Password{' '}
+            <input
+              className={`${style.input} ${inputClass}`}
+              type='password'
+              {...register('password', {
+                required: true,
+              })}
+            />
+          </label>
           <input className={style.button} type='submit' value='Register' />
         </form>
       </div>

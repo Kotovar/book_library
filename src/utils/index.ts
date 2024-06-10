@@ -13,4 +13,3 @@ export { useGetFavorites } from './useGetFavorites';
 export { useGetHistory } from './useGetHistory';
 export { useHandleNavigateClick } from './useHandleNavigateClick';
 export { useLogout } from './useLogout';
-export { useVisibilityTimer } from './useVisibilityTimer';

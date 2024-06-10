@@ -5,7 +5,6 @@
   justify-items: center;
   justify-content: center;
   margin-inline: auto;
-  column-gap: 1rem;
 }
 
 .container {
@@ -15,14 +14,14 @@
 .input {
   width: 50vw;
   grid-area: input;
-  border-radius: 10px;
-  border: 1px solid rgb(226, 225, 225);
+  border-radius: var(--border-radius-small) 0 0 var(--border-radius-small);
+  border: 0;
 }
 
 .search-result {
   width: 50vw;
-  border-radius: 10px;
-  background-color: rgb(226, 225, 225);
+  border-radius: var(--border-radius-small);
+  background-color: var(--header-bg-color-light);
   position: absolute;
   z-index: 200;
 
@@ -52,14 +51,15 @@
   }
 }
 
-.input-button {
+.inputButton {
   grid-area: input-button;
-  background-color: transparent;
-  border-radius: 15px;
-  border: 1px solid black;
+  border: 0;
+  border-left: 3px solid var(--border-color);
+  background-color: var(--header-bg-color-light);
+  border-radius: 0 var(--border-radius-small) var(--border-radius-small) 0;
 
   &:hover {
-    background-color: var(--hover-color);
+    background-color: rgb(209, 209, 209);
   }
 }
 
@@ -69,4 +69,25 @@
 
 .dark {
   background: var(--card-bg-dark);
+}
+
+@media (max-width: 768px) {
+  .input {
+    width: 70vw;
+  }
+
+  .search-result {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .inputButton {
+    width: 20vw;
+    height: 8vh;
+  }
+
+  .input {
+    height: 8vh;
+  }
 }

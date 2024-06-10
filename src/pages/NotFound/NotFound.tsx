@@ -14,7 +14,7 @@ export const NotFound = () => {
     <main className={`${mainClass} ${style.main}`}>
       <h1 className={style.h1}>This page does not exist :( </h1>
       <Link className={style.link} to='/'>
-        Home
+        Back home
       </Link>
     </main>
   );

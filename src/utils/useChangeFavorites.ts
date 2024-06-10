@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   addFavorite,
+  getError,
   removeFavorite,
 } from '../features/featureAuthorization/AuthorizationSlice';
 
@@ -13,6 +14,7 @@ export const useChangeFavorites = () => {
 
   const changeFavorites = async (bookId: string) => {
     if (!user) {
+      dispatch(getError('User is not authorized'));
       return;
     }
 

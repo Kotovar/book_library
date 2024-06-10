@@ -2,9 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   margin-inline: 2rem;
-
   padding-inline: 2rem;
   border: 2px solid var(--border-color);
   border-radius: 15px;
@@ -24,8 +22,9 @@
 
 .button {
   background-color: transparent;
-  border-radius: 15px;
+  border-radius: var(--border-radius);
   border: 1px solid black;
+  margin-block: 1rem;
 
   &:hover {
     background-color: var(--hover-color);
@@ -53,4 +52,24 @@
 
 .containerDark {
   background: var(--card-bg-light);
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .descriptionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    margin-inline: 1rem;
+    padding-inline: 1rem;
+  }
 }

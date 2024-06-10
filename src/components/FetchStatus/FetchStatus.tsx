@@ -1,5 +1,6 @@
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useOutletContext } from 'react-router-dom';
 
 import type { BooksArrayResult, VolumeInfo } from '../../types/types';
 
@@ -13,9 +14,13 @@ interface Props {
 }
 
 export const FetchStatus = ({ isLoading, error, data, children }: Props) => {
+  const theme: 'light' | 'dark' = useOutletContext();
+
+  const mainClass = theme === 'light' ? style.light : style.dark;
+
   if (isLoading) {
     return (
-      <main>
+      <main className={mainClass}>
         <p className={style.p}>Loading...</p>
       </main>
     );

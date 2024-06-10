@@ -10,7 +10,7 @@ export const Loader = () => {
 
   return (
     <main className={mainClass}>
-      <p className={style.p}>Loading...</p>
+      <p className={style.p}>Loading</p>
     </main>
   );
 };

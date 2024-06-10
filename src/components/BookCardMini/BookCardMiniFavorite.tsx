@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useOutletContext } from 'react-router-dom';
 
 import { useGetBookByIdQuery } from '../../features/featureBooksApi/booksApi';
@@ -57,8 +56,4 @@ export const BookCardMiniFavorite = ({ bookId }: Props) => {
       </div>
     </FetchStatus>
   );
-};
-
-BookCardMiniFavorite.propTypes = {
-  bookId: PropTypes.string,
 };

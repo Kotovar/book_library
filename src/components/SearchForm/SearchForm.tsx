@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from 'react';
 
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import PropTypes from 'prop-types';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
@@ -90,8 +89,4 @@ export const SearchForm = ({ searchParams }: Props) => {
       {error && <p>{getErrorMessage(error)}</p>}
     </div>
   );
-};
-
-SearchForm.propTypes = {
-  searchParams: PropTypes.string,
 };

@@ -37,8 +37,8 @@ export const getBookDetailsFull = (
     text = addedToFavorites ? 'Remove from favorites' : 'Add to favorites';
     title = data.title ?? 'No name';
     description = data.description ? parse(data.description) : 'No description';
-    language = `Language: ${data.language}`;
-    pages = `Pages: ${data.pageCount}`;
+    language = `Language: ${data.language ?? 'Not indicated'}`;
+    pages = `Pages: ${data.pageCount ?? 'Not indicated'}`;
   }
 
   return { imageUrl, authors, text, title, description, language, pages };

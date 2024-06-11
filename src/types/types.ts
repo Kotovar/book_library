@@ -58,7 +58,7 @@ export interface BookDetailsFull {
   title: string;
   description: ReactElement | ReactElement[] | string;
   language: string;
-  pages: string;
+  pages?: string;
 }
 
 export interface BookDetailsLite {

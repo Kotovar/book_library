@@ -26,6 +26,7 @@ export const SignUp = () => {
             Email{' '}
             <input
               className={`${style.input} ${inputClass}`}
+              type='email'
               {...register('email', {
                 required: true,
               })}

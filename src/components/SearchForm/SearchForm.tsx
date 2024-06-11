@@ -66,7 +66,7 @@ export const SearchForm = ({ searchParams }: Props) => {
         <div>
           <input
             className={`${style.input} ${inputClass}`}
-            type='text'
+            type='search'
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             onKeyDown={checkKeyDown}

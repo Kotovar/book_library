@@ -10,6 +10,7 @@
 
   p {
     max-width: -webkit-fill-available;
+    max-width: -moz-available;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

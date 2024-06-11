@@ -1,3 +1,5 @@
+import type { ReactElement } from 'react';
+
 export type User = {
   uid: string;
   favorites?: string[];
@@ -54,7 +56,7 @@ export interface BookDetailsFull {
   authors: string;
   text: string;
   title: string;
-  description: string;
+  description: ReactElement | ReactElement[] | string;
   language: string;
   pages: string;
 }

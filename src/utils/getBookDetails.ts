@@ -1,3 +1,7 @@
+import type { ReactElement } from 'react';
+
+import parse from 'html-react-parser';
+
 import DefaultBookCover from '../../public/nobookcover.webp';
 import type {
   VolumeInfo,
@@ -16,7 +20,7 @@ export const getBookDetailsFull = (
   let authors: string = ' ';
   let text: string = '';
   let title: string = 'The book is loading';
-  let description: string = '';
+  let description: ReactElement | ReactElement[] | string = '';
   let language: string = '';
   let pages: string = '';
 
@@ -32,7 +36,7 @@ export const getBookDetailsFull = (
     authors = data.authors?.join(', ') ?? 'Author not specified';
     text = addedToFavorites ? 'Remove from favorites' : 'Add to favorites';
     title = data.title ?? 'No name';
-    description = data.description ?? 'No description';
+    description = data.description ? parse(data.description) : 'No description';
     language = `Language: ${data.language}`;
     pages = `Pages: ${data.pageCount}`;
   }

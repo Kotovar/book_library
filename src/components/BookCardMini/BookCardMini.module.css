@@ -9,8 +9,7 @@
   aspect-ratio: 3/4;
 
   p {
-    max-width: -webkit-fill-available;
-    max-width: -moz-available;
+    max-width: 100%;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
